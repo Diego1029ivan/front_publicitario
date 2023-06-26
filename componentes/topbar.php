@@ -10,7 +10,7 @@
 <form
     class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
     <div class="input-group">
-        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+        <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar..."
             aria-label="Search" aria-describedby="basic-addon2">
         <div class="input-group-append">
             <button class="btn btn-primary" type="button">
@@ -170,7 +170,7 @@
     <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Nombre de usuario</span>
             <img class="img-profile rounded-circle"
                 src="img/undraw_profile.svg">
         </a>
@@ -179,20 +179,17 @@
             aria-labelledby="userDropdown">
             <a class="dropdown-item" href="#">
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                Profile
+                Perfil
             </a>
             <a class="dropdown-item" href="#">
                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                Settings
+                Ajustes
             </a>
-            <a class="dropdown-item" href="#">
-                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                Activity Log
-            </a>
+            
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                Logout
+                Cerrar sesión
             </a>
         </div>
     </li>
