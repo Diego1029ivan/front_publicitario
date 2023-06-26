@@ -37,9 +37,9 @@
     </a>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Lista de usuarios:</h6>
-            <a class="collapse-item" href="buttons.php">Usuarios Estándares</a>
-            <a class="collapse-item" href="cards.html">Usuarios de Hoteles</a>
+            <h6 class="collapse-header">material:</h6>
+            <a class="collapse-item" href="buttons.php">Botones</a>
+            <a class="collapse-item" href="cards.html">Cards</a>
         </div>
     </div>
 </li>
@@ -68,18 +68,33 @@
     Productos
 </div>
 
-<!-- Nav Item - Pages Collapse Menu -->
+<!-- Nav Item - Productos Collapse Menu -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTipo"
+        aria-expanded="true" aria-controls="collapseTipo">
+        <i class="fas fa-fw fa-cog"></i>
+        <span>Tipo de Producto</span>
+    </a>
+    <div id="collapseTipo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Modificación:</h6>
+            <a class="collapse-item" href="./categoria.php">Categorías</a>
+            <a class="collapse-item" href="./marca.php">Marcas</a>
+        </div>
+    </div>
+</li>
+
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProd"
         aria-expanded="true" aria-controls="collapseProd">
         <i class="fas fa-fw fa-cog"></i>
-        <span>Productos</span>
+        <span>Producto</span>
     </a>
     <div id="collapseProd" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Lista de usuarios:</h6>
-            <a class="collapse-item" href="./categoria.php">Categorías</a>
-            <a class="collapse-item" href="./marca.php">Marcas</a>
+            <h6 class="collapse-header">Mostrar:</h6>
+            <a class="collapse-item" href="./producto.php">Producto</a>
+            
         </div>
     </div>
 </li>
