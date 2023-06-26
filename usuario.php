@@ -2,7 +2,7 @@
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://localhost:75/admin/categoria', // Agregué "http://" para especificar el protocolo
+  CURLOPT_URL => 'http://localhost:75/admin/usuario', // Agregué "http://" para especificar el protocolo
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -14,7 +14,23 @@ curl_setopt_array($curl, array(
 
 $response = curl_exec($curl);
 
+$curl2 = curl_init();
+
+curl_setopt_array($curl2, array(
+  CURLOPT_URL => 'http://localhost:75/admin/perfil', // Agregué "http://" para especificar el protocolo
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+));
+
+$response = curl_exec($curl);
+$response2 = curl_exec($curl2);
 curl_close($curl);
+curl_close($curl2);
 
 if ($response === false) {
   echo 'Error en la solicitud cURL: ' . curl_error($curl);
@@ -22,6 +38,16 @@ if ($response === false) {
   $decodedResponse = json_decode($response);
 
   if ($decodedResponse === null) {
+    echo 'Error al decodificar la respuesta JSON.';
+  }
+}
+
+if ($response2 === false) {
+  echo 'Error en la solicitud cURL: ' . curl_error($curl2);
+} else {
+  $decodedResponse2 = json_decode($response2);
+
+  if ($decodedResponse2 === null) {
     echo 'Error al decodificar la respuesta JSON.';
   }
 }
@@ -72,8 +98,8 @@ if ($response === false) {
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Categorías</h1>
-          <p class="mb-4">Desarrollo de CRUD para categorías de productos</a>.</p>
+          <h1 class="h3 mb-2 text-gray-800">Usuario</h1>
+          <p class="mb-4">Desarrollo de CRUD para usuario</a>.</p>
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
@@ -88,6 +114,12 @@ if ($response === false) {
                     <tr>
                       <th>ID</th>
                       <th>Nombre</th>
+                      <th>Apellido</th>
+                      <th>Correo</th>
+                      <th>Celular</th>
+                      <th>Dirección</th>
+                      <th>DNI</th>
+                      <th>Rol</th>
                       <th>Estado</th>
                       <th>Acciones</th>
 
@@ -98,25 +130,33 @@ if ($response === false) {
                     <tr>
                       <th>ID</th>
                       <th>Nombre</th>
+                      <th>Apellido</th>
+                      <th>Correo</th>
+                      <th>Celular</th>
+                      <th>Dirección</th>
+                      <th>DNI</th>
+                      <th>Rol</th>
                       <th>Estado</th>
                       <th>Acciones</th>
-
                     </tr>
                   </tfoot>
                   <tbody>
-                    <?php foreach ($decodedResponse as $categoria) { ?>
+                    <?php foreach ($decodedResponse as $usuario) { ?>
                       <tr>
-                        <td><?= $categoria->idCategoria ?></td>
-                        <td><?= $categoria->nombres ?></td>
-                        <td><?= $categoria->estado ?></td>
+                        <td><?= $usuario->idUsuario ?></td>
+                        <td><?= $usuario->nombre ?></td>
+                        <td><?= $usuario->apellido ?></td>
+                        <td><?= $usuario->correo ?></td>
+                        <td><?= $usuario->celular ?></td>
+                        <td><?= $usuario->direccion ?></td>
+                        <td><?= $usuario->dni ?></td>
+                        <td><?= $usuario->perfil->nombres ?></td>
+                        <td><?= $usuario->estado ?></td>
 
                         <td>
-                          <a href="#" data-toggle="modal" data-target="#editModal" data-id="<?= $categoria->idCategoria ?>"><i class="fas fa-edit"></i></a>
-                          <a href="#" class="borrarCategoria" data-id="<?= $categoria->idCategoria ?>"><i class="fas fa-trash-alt"></i></a>
+                          <a href="#" data-toggle="modal" data-target="#editModal" data-id="<?= $usuario->idUsuario ?>"><i class="fas fa-edit"></i></a>
+                          <a href="#" class="borrarUsuario" data-id="<?= $usuario->idUsuario ?>"><i class="fas fa-trash-alt"></i></a>
                         </td>
-
-
-
                       </tr>
                     <?php } ?>
                   </tbody>
@@ -176,7 +216,7 @@ if ($response === false) {
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Editar la categoría</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Editar el Usuario</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -186,22 +226,56 @@ if ($response === false) {
             <div class="form-group">
 
               <label for="">ID</label>
-              <input type="text" disabled class="form-control form-control-user" id="editCategoryId">
+              <input type="text" disabled class="form-control form-control-user" id="editUsuarioId">
             </div>
-            <div class="form-group">
-              <label for="">Nombre</label>
-              <input type="text" class="form-control form-control-user" id="editCategoryName">
+            <div class="row">
+              <div class="form-group col-sm-6">
+                <label for="crearUsuarioName">Nombre</label>
+                <input type="text" class="form-control form-control-user" id="crearUsuarioName">
+              </div>
+              <div class="form-group col-sm-6">
+                <label for="crearUsuarioapellido">Apellido</label>
+                <input type="text" class="form-control form-control-user" id="crearUsuarioapellido">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-sm-6">
+                <label for="crearUsuariocorreo">Correo</label>
+                <input type="email" class="form-control form-control-user" id="crearUsuariocorreo">
+              </div>
+              <div class="form-group col-sm-6">
+                <label for="crearUsuariocelular">Celular</label>
+                <input type="number" class="form-control form-control-user" id="crearUsuariocelular">
+              </div>
 
             </div>
             <div class="form-group">
-              <label for="">Estado</label>
-              <select name="select" id="select" class="form-control">
-                <option value="Activo">Activo</option>
-                <option value="Inactivo">Inactivo</option>
-              </select>
+              <label for="crearUsuariodireccion">Dirreción</label>
+              <input type="text" class="form-control form-control-user" id="crearUsuariodireccion">
             </div>
 
-
+            <div class="form-group">
+              <label for="crearUsuarioDNI">DNI</label>
+              <input type="text" class="form-control form-control-user" id="crearUsuarioDNI">
+            </div>
+            <div class="row">
+              <div class="form-group col-sm-6">
+                <label for="crearRol">Rol</label>
+                <select name="select" id="crearRol" class="form-control">
+                  <?php foreach ($decodedResponse2 as $rol) { ?>
+                    <option value="<?= $rol->idperfil ?>"><?= $rol->nombres ?></option>
+                  <?php } ?>
+                </select>
+              </div>
+              <div class="form-group col-sm-6">
+                <label for="">Estado</label>
+                <select name="select" id="crearselect" class="form-control">
+                  <option value="Activo">Activo</option>
+                  <option value="Inactivo">Inactivo</option>
+                </select>
+              </div>
+            </div>
 
           </form>
         </div>
@@ -219,28 +293,61 @@ if ($response === false) {
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Crear la categoría</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Crear el Usuario</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
         </div>
         <div class="modal-body">
           <form class="user">
+            <div class="row">
+              <div class="form-group col-sm-6">
+                <label for="crearUsuarioName">Nombre</label>
+                <input type="text" class="form-control form-control-user" id="crearUsuarioName">
+              </div>
+              <div class="form-group col-sm-6">
+                <label for="crearUsuarioapellido">Apellido</label>
+                <input type="text" class="form-control form-control-user" id="crearUsuarioapellido">
+              </div>
+            </div>
 
-            <div class="form-group">
-              <label for="">Nombre</label>
-              <input type="text" class="form-control form-control-user" id="crearCategoryName">
+            <div class="row">
+              <div class="form-group col-sm-6">
+                <label for="crearUsuariocorreo">Correo</label>
+                <input type="email" class="form-control form-control-user" id="crearUsuariocorreo">
+              </div>
+              <div class="form-group col-sm-6">
+                <label for="crearUsuariocelular">Celular</label>
+                <input type="number" class="form-control form-control-user" id="crearUsuariocelular">
+              </div>
 
             </div>
             <div class="form-group">
-              <label for="">Estado</label>
-              <select name="select" id="crearselect" class="form-control">
-                <option value="Activo">Activo</option>
-                <option value="Inactivo">Inactivo</option>
-              </select>
+              <label for="crearUsuariodireccion">Dirreción</label>
+              <input type="text" class="form-control form-control-user" id="crearUsuariodireccion">
             </div>
 
-
+            <div class="form-group">
+              <label for="crearUsuarioDNI">DNI</label>
+              <input type="text" class="form-control form-control-user" id="crearUsuarioDNI">
+            </div>
+            <div class="row">
+              <div class="form-group col-sm-6">
+                <label for="crearRol">Rol</label>
+                <select name="select" id="crearRol" class="form-control">
+                  <?php foreach ($decodedResponse2 as $rol) { ?>
+                    <option value="<?= $rol->idperfil ?>"><?= $rol->nombres ?></option>
+                  <?php } ?>
+                </select>
+              </div>
+              <div class="form-group col-sm-6">
+                <label for="">Estado</label>
+                <select name="select" id="crearselect" class="form-control">
+                  <option value="Activo">Activo</option>
+                  <option value="Inactivo">Inactivo</option>
+                </select>
+              </div>
+            </div>
 
           </form>
         </div>
@@ -275,10 +382,10 @@ if ($response === false) {
     $(document).ready(function() {
       $('#editModal').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget);
-        var categoryId = button.data('id');
+        var usuarioId = button.data('id');
 
         // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
-        var apiUrl = 'http://localhost:75/admin/categoria/' + categoryId;
+        var apiUrl = 'http://localhost:75/admin/usuario/' + usuarioId;
 
         var requestOptions = {
           method: 'GET',
@@ -288,8 +395,14 @@ if ($response === false) {
         fetch(apiUrl, requestOptions)
           .then(response => response.json())
           .then(result => {
-            $('#editCategoryId').val(result.idCategoria);
-            $('#editCategoryName').val(result.nombres);
+            $('#editUsuarioId').val(result.idUsuario);
+            $('#crearUsuarioName').val(result.nombre);
+            $('#crearUsuarioapellido').val(result.apellido);
+            $('#crearUsuariocorreo').val(result.correo);
+            $('#crearUsuariocelular').val(result.celular);
+            $('#crearUsuariodireccion').val(result.direccion);
+            $('#crearUsuarioDNI').val(result.dni);
+            $('#crearRol').val(result.perfil.idperfil);
             $('#select').val(result.estado);
           })
           .catch(error => console.log('error', error));
@@ -298,22 +411,30 @@ if ($response === false) {
     $('#guardarBtn').click(function() {
       Swal.fire({
         title: 'Estas seguro?',
-        text: "Actualizará la categoría",
+        text: "Actualizará el usuario",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, actualizar!'
+        confirmButtonText: 'Si, actualizo!'
       }).then((result) => {
         if (result.isConfirmed) {
 
           var myHeaders = new Headers();
           myHeaders.append("Content-Type", "application/json");
 
-          var raw = JSON.stringify({
-            "idCategoria": $('#editCategoryId').val(),
-            "nombres": $('#editCategoryName').val(),
-            "estado": $('#select').val()
+          let raw = JSON.stringify({
+            "idUsuario": $('#editUsuarioId').val(),
+            "nombre": $('#crearUsuarioName').val(),
+            "apellido": $('#crearUsuarioapellido').val(),
+            "correo": $('#crearUsuariocorreo').val(),
+            "celular": $('#crearUsuariocelular').val(),
+            "direccion": $('#crearUsuariodireccion').val(),
+            "dni": $('#crearUsuarioDNI').val(),
+            "perfil": {
+              "idperfil": $('#crearRol').val()
+            },
+            "estado": $('#crearselect').val()
           });
           //console.log(raw)
           var requestOptions = {
@@ -323,12 +444,12 @@ if ($response === false) {
             redirect: 'follow'
           };
 
-          fetch("http://localhost:75/admin/categoria", requestOptions)
+          fetch("http://localhost:75/admin/usuario", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Categoría Actualizada',
+            title: 'Usuario Actualizado',
             showConfirmButton: false,
             timer: 1400
           })
@@ -347,7 +468,7 @@ if ($response === false) {
     $('#crearBtn').click(function() {
       Swal.fire({
         title: 'Estas seguro?',
-        text: "Actualizará la categoría",
+        text: "Actualizará el usuario",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -355,16 +476,23 @@ if ($response === false) {
         confirmButtonText: 'Si, actualizar!'
       }).then((result) => {
         if (result.isConfirmed) {
-
-          var myHeaders = new Headers();
+          let myHeaders = new Headers();
           myHeaders.append("Content-Type", "application/json");
 
-          var raw = JSON.stringify({
+          let raw = JSON.stringify({
 
-            "nombres": $('#crearCategoryName').val(),
+            "nombre": $('#crearUsuarioName').val(),
+            "apellido": $('#crearUsuarioapellido').val(),
+            "correo": $('#crearUsuariocorreo').val(),
+            "celular": $('#crearUsuariocelular').val(),
+            "direccion": $('#crearUsuariodireccion').val(),
+            "dni": $('#crearUsuarioDNI').val(),
+            "perfil": {
+              "idperfil": $('#crearRol').val()
+            },
             "estado": $('#crearselect').val()
           });
-          //console.log(raw)
+
           var requestOptions = {
             method: 'POST',
             headers: myHeaders,
@@ -372,19 +500,19 @@ if ($response === false) {
             redirect: 'follow'
           };
 
-          fetch("http://localhost:75/admin/categoria", requestOptions)
+          fetch("http://localhost:75/admin/usuario", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Categoría Actualizada',
+            title: 'Usuario Actualizado',
             showConfirmButton: false,
             timer: 1400
           })
 
           $('#crearModal').modal('hide');
           setTimeout(function() {
-            location.reload(); // Recargar la página después de un tiempo de espera
+            location.reload();
           }, 1500);
 
         }
@@ -393,17 +521,17 @@ if ($response === false) {
 
     });
 
-    $('.borrarCategoria').click(function(event) {
+    $('.borrarUsuario').click(function(event) {
 
 
-      var categoryId = $(this).data('id'); //reconocer el numero directo del id
+      var usuarioId = $(this).data('id'); //reconocer el numero directo del id
 
-      // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
-      var apiUrl = 'http://localhost:75/admin/categoria/' + categoryId;
-      //console.log(apiUrl,categoryId)
+      // Aquí realizas la solicitud para obtener los datos de los usuarios con el ID correspondiente
+      var apiUrl = 'http://localhost:75/admin/usuario/' + usuarioId;
+
       Swal.fire({
         title: 'Estas seguro?',
-        text: "Se borrará la categoría",
+        text: "Se borrará el usuario",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -423,7 +551,7 @@ if ($response === false) {
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Categoría Borrada',
+            title: 'Usuario Borrado',
             showConfirmButton: false,
             timer: 1400
           })
