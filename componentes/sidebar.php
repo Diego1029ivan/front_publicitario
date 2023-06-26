@@ -34,19 +34,17 @@
       <span>Usuarios</span>
     </a>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-<<<<<<< HEAD
-        <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">material:</h6>
-            <a class="collapse-item" href="buttons.php">Botones</a>
-            <a class="collapse-item" href="cards.html">Cards</a>
-        </div>
-=======
+
+
+        
+
+
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Lista de usuarios:</h6>
         <a class="collapse-item" href="./usuario.php">Usuarios</a>
         <a class="collapse-item" href="./rol.php">Rol</a>
       </div>
->>>>>>> a84e2544380c04adee878afee5d18087bcad7755
+
     </div>
   </li>
 
@@ -70,9 +68,11 @@
   <!-- Heading -->
   <div class="sidebar-heading">
     Productos
-  </div>
 
-<<<<<<< HEAD
+
+</div>
+
+
 <!-- Nav Item - Productos Collapse Menu -->
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTipo"
@@ -101,20 +101,9 @@
             <a class="collapse-item" href="./producto.php">Producto</a>
             
         </div>
-=======
-  <!-- Nav Item - Pages Collapse Menu -->
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProd" aria-expanded="true" aria-controls="collapseProd">
-      <i class="fas fa-fw fa-cog"></i>
-      <span>Productos</span>
-    </a>
-    <div id="collapseProd" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Lista de Productos:</h6>
-        <a class="collapse-item" href="./categoria.php">Categorías</a>
-        <a class="collapse-item" href="./marca.php">Marcas</a>
-      </div>
->>>>>>> a84e2544380c04adee878afee5d18087bcad7755
+
+
+
     </div>
   </li>
 
