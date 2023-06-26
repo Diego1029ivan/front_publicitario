@@ -80,7 +80,8 @@ if ($response === false) {
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                            
+                            <a class="btn btn-primary"  href="#" data-toggle="modal" data-target="#crearModal">Crear</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -114,7 +115,7 @@ if ($response === false) {
                                             <td>
                                                 <a href="#" data-toggle="modal" data-target="#editModal"
                                                 data-id="<?= $categoria->idCategoria ?>" ><i class="fas fa-edit"></i></a>
-                                                <i class="fas fa-trash-alt"></i>
+                                                <a href="#" class="borrarCategoria" data-id="<?= $categoria->idCategoria ?>" ><i class="fas fa-trash-alt"></i></a>
                                             </td>
                                             
                                             
@@ -168,7 +169,7 @@ if ($response === false) {
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="login.php">Logout</a>
                 </div>
             </div>
         </div>
@@ -189,19 +190,21 @@ if ($response === false) {
                                 <div class="form-group">
                                     
                                         <label for="">ID</label>
-                                        <input type="text" class="form-control form-control-user" id="editCategoryId"
-                                            placeholder="First Name">
+                                        <input type="text" disabled class="form-control form-control-user" id="editCategoryId"
+                                            >
                                 </div>
                                 <div class="form-group">
                                         <label for="">Nombre</label>
                                         <input type="text" class="form-control form-control-user" id="editCategoryName"
-                                            placeholder="Last Name">
+                                            >
                                     
                                 </div>
                                 <div class="form-group">
                                     <label for="">Estado</label>
-                                    <input type="email" class="form-control form-control-user" id="editCategoryStatus"
-                                        placeholder="Email Address">
+                                    <select name="select" id="select" class="form-control">
+                                        <option value="Activo">Activo</option>
+                                        <option value="Inactivo">Inactivo</option>
+                                    </select>
                                 </div>
                                 
                                 
@@ -210,11 +213,53 @@ if ($response === false) {
                         </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Guardar</a>
+                    <a class="btn btn-primary" href="#" id="guardarBtn">Guardar</a>
                 </div>
+                
             </div>
         </div>
     </div>
+
+    <!-- crear Modal-->
+    <div class="modal fade" id="crearModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar la categoría</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body"><form class="user">
+                                
+                                <div class="form-group">
+                                        <label for="">Nombre</label>
+                                        <input type="text" class="form-control form-control-user" id="crearCategoryName"
+                                            >
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Estado</label>
+                                    <select name="select" id="crearselect" class="form-control">
+                                        <option value="Activo">Activo</option>
+                                        <option value="Inactivo">Inactivo</option>
+                                    </select>
+                                </div>
+                                
+                                
+                                
+                            </form>
+                        </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="#" id="crearBtn">Guardar</a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -229,6 +274,7 @@ if ($response === false) {
     <!-- Page level plugins -->
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
@@ -251,10 +297,153 @@ if ($response === false) {
             .then(result => {
                 $('#editCategoryId').val(result.idCategoria);
                 $('#editCategoryName').val(result.nombres);
-                $('#editCategoryStatus').val(result.estado);
+                $('#select').val(result.estado);
             })
             .catch(error => console.log('error', error));
             });
+        });
+        $('#guardarBtn').click(function() {
+            Swal.fire({
+                title: 'Estas seguro?',
+                text: "Actualizará la categoría",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, actualizar!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+
+                    var myHeaders = new Headers();
+                    myHeaders.append("Content-Type", "application/json");
+
+                    var raw = JSON.stringify({
+                    "idCategoria": $('#editCategoryId').val(),
+                    "nombres": $('#editCategoryName').val(),
+                    "estado": $('#select').val()
+                    });
+                    //console.log(raw)
+                    var requestOptions = {
+                    method: 'PUT',
+                    headers: myHeaders,
+                    body: raw,
+                    redirect: 'follow'
+                    };
+
+                    fetch("http://localhost:75/admin/categoria", requestOptions)
+                    .catch(error => console.log('error', error));
+                    Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Categoría Actualizada',
+                    showConfirmButton: false,
+                    timer: 1400
+                    })
+                    
+                    $('#editModal').modal('hide');
+                    setTimeout(function() {
+                        location.reload(); // Recargar la página después de un tiempo de espera
+                    }, 1500);
+                    
+                }
+                
+                })
+                
+        });
+
+        $('#crearBtn').click(function() {
+            Swal.fire({
+                title: 'Estas seguro?',
+                text: "Actualizará la categoría",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, actualizar!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+
+                    var myHeaders = new Headers();
+                    myHeaders.append("Content-Type", "application/json");
+
+                    var raw = JSON.stringify({
+                    
+                    "nombres": $('#crearCategoryName').val(),
+                    "estado": $('#crearselect').val()
+                    });
+                    //console.log(raw)
+                    var requestOptions = {
+                    method: 'POST',
+                    headers: myHeaders,
+                    body: raw,
+                    redirect: 'follow'
+                    };
+
+                    fetch("http://localhost:75/admin/categoria", requestOptions)
+                    .catch(error => console.log('error', error));
+                    Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Categoría Actualizada',
+                    showConfirmButton: false,
+                    timer: 1400
+                    })
+                    
+                    $('#crearModal').modal('hide');
+                    setTimeout(function() {
+                        location.reload(); // Recargar la página después de un tiempo de espera
+                    }, 1500);
+                    
+                }
+                
+                })
+                
+        });
+
+        $('.borrarCategoria').click(function(event) {
+
+            
+            var categoryId = $(this).data('id');//reconocer el numero directo del id
+            
+            // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
+            var apiUrl = 'http://localhost:75/admin/categoria/' + categoryId;
+            //console.log(apiUrl,categoryId)
+            Swal.fire({
+                title: 'Estas seguro?',
+                text: "Se borrará la categoría",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, Borrar!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+
+                    var requestOptions = {
+                    method: 'DELETE',
+                    redirect: 'follow'
+                    };
+
+                    fetch(apiUrl, requestOptions)
+                    .then(response => response.text())                    
+                    .catch(error => console.log('error', error));
+                    Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Categoría Borrada',
+                    showConfirmButton: false,
+                    timer: 1400
+                    })
+                    
+                    
+                    setTimeout(function() {
+                        location.reload(); // Recargar la página después de un tiempo de espera
+                    }, 1500);
+                    
+                }
+                
+                })
+                
         });
 </script>
 </body>
