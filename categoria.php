@@ -347,12 +347,12 @@ if ($response === false) {
     $('#crearBtn').click(function() {
       Swal.fire({
         title: 'Estas seguro?',
-        text: "Actualizará la categoría",
+        text: "Creará la categoría",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, actualizar!'
+        confirmButtonText: 'Si, crear!'
       }).then((result) => {
         if (result.isConfirmed) {
 
