@@ -132,13 +132,9 @@ if ($response === false) {
       <!-- End of Main Content -->
 
       <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2020</span>
-          </div>
-        </div>
-      </footer>
+      <!-- Footer -->
+      <?php include('componentes/footer.php'); ?>
+      <!-- End of Footer -->
       <!-- End of Footer -->
 
     </div>
@@ -239,9 +235,6 @@ if ($response === false) {
                 <option value="Inactivo">Inactivo</option>
               </select>
             </div>
-
-
-
           </form>
         </div>
         <div class="modal-footer">
