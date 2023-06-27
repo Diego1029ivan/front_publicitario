@@ -65,7 +65,7 @@ if ($response2 === false) {
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Tables</title>
+  <?php include('componentes/title.php'); ?>
 
   <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -296,39 +296,39 @@ if ($response2 === false) {
           <form class="user">
             <div class="row">
               <div class="form-group col-sm-6">
-                <label for="crearUsuarioName">Nombre</label>
-                <input type="text" class="form-control form-control-user" id="crearUsuarioName">
+                <label for="crearUsuarioName1">Nombre</label>
+                <input type="text" class="form-control form-control-user" id="crearUsuarioName1">
               </div>
               <div class="form-group col-sm-6">
-                <label for="crearUsuarioapellido">Apellido</label>
-                <input type="text" class="form-control form-control-user" id="crearUsuarioapellido">
+                <label for="crearUsuarioapellido1">Apellido</label>
+                <input type="text" class="form-control form-control-user" id="crearUsuarioapellido1">
               </div>
             </div>
 
             <div class="row">
               <div class="form-group col-sm-6">
-                <label for="crearUsuariocorreo">Correo</label>
-                <input type="email" class="form-control form-control-user" id="crearUsuariocorreo">
+                <label for="crearUsuariocorreo1">Correo</label>
+                <input type="email" class="form-control form-control-user" id="crearUsuariocorreo1">
               </div>
               <div class="form-group col-sm-6">
-                <label for="crearUsuariocelular">Celular</label>
-                <input type="number" class="form-control form-control-user" id="crearUsuariocelular">
+                <label for="crearUsuariocelular1">Celular</label>
+                <input type="number" class="form-control form-control-user" id="crearUsuariocelular1">
               </div>
 
             </div>
             <div class="form-group">
-              <label for="crearUsuariodireccion">Dirreción</label>
-              <input type="text" class="form-control form-control-user" id="crearUsuariodireccion">
+              <label for="crearUsuariodireccion1">Dirreción</label>
+              <input type="text" class="form-control form-control-user" id="crearUsuariodireccion1">
             </div>
 
             <div class="form-group">
-              <label for="crearUsuarioDNI">DNI</label>
-              <input type="text" class="form-control form-control-user" id="crearUsuarioDNI">
+              <label for="crearUsuarioDNI1">DNI</label>
+              <input type="text" class="form-control form-control-user" id="crearUsuarioDNI1">
             </div>
             <div class="row">
               <div class="form-group col-sm-6">
                 <label for="crearRol">Rol</label>
-                <select name="select" id="crearRol" class="form-control">
+                <select name="select" id="crearRol1" class="form-control">
                   <?php foreach ($decodedResponse2 as $rol) { ?>
                     <option value="<?= $rol->idperfil ?>"><?= $rol->nombres ?></option>
                   <?php } ?>
@@ -336,7 +336,7 @@ if ($response2 === false) {
               </div>
               <div class="form-group col-sm-6">
                 <label for="">Estado</label>
-                <select name="select" id="crearselect" class="form-control">
+                <select name="select" id="crearselect1" class="form-control">
                   <option value="Activo">Activo</option>
                   <option value="Inactivo">Inactivo</option>
                 </select>
@@ -475,16 +475,17 @@ if ($response2 === false) {
 
           let raw = JSON.stringify({
 
-            "nombre": $('#crearUsuarioName').val(),
-            "apellido": $('#crearUsuarioapellido').val(),
-            "correo": $('#crearUsuariocorreo').val(),
-            "celular": $('#crearUsuariocelular').val(),
-            "direccion": $('#crearUsuariodireccion').val(),
-            "dni": $('#crearUsuarioDNI').val(),
+            "nombre": $('#crearUsuarioName1').val(),
+            "apellido": $('#crearUsuarioapellido1').val(),
+            "correo": $('#crearUsuariocorreo1').val(),
+            "celular": $('#crearUsuariocelular1').val(),
+            "direccion": $('#crearUsuariodireccion1').val(),
+            "dni": $('#crearUsuarioDNI1').val(),
             "perfil": {
-              "idperfil": $('#crearRol').val()
+              "idperfil": $('#crearRol1').val()
             },
-            "estado": $('#crearselect').val()
+
+            "estado": $('#crearselect1').val()
           });
 
           var requestOptions = {
@@ -493,6 +494,8 @@ if ($response2 === false) {
             body: raw,
             redirect: 'follow'
           };
+
+          console.log(raw);
 
           fetch("http://localhost:75/admin/usuario", requestOptions)
             .catch(error => console.log('error', error));
