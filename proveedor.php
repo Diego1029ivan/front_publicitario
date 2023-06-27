@@ -39,7 +39,8 @@ if ($response === false) {
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Publi-Proveedor</title>
+
+  <?php include('componentes/title.php'); ?>
 
   <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -127,7 +128,7 @@ if ($response === false) {
                         <td><?= $proveedor->estado ?></td>
                         <td><?= $proveedor->ntarjeta ?></td>
                         <td><?= $proveedor->ruc ?></td>
-                        
+
 
                         <td>
                           <a href="#" data-toggle="modal" data-target="#editModal" data-id="<?= $proveedor->idProveedor ?>"><i class="fas fa-edit"></i></a>
@@ -199,12 +200,12 @@ if ($response === false) {
         <div class="modal-body">
           <form class="user">
             <div class="form-group">
-                <label for="">N. Compañía</label>
-                <input type="text" class="form-control form-control-user" id="editProvNameC">
+              <label for="">N. Compañía</label>
+              <input type="text" class="form-control form-control-user" id="editProvNameC">
 
             </div>
-            
-            
+
+
             <div class="form-group row">
 
               <div class="col-sm-6 mb-3 mb-sm-0">
@@ -236,8 +237,8 @@ if ($response === false) {
               <div class="col-sm-6">
                 <label for="">Estado</label>
                 <select name="select" id="editselect" class="form-control">
-                    <option value="Activo">Activo</option>
-                    <option value="Inactivo">Inactivo</option>
+                  <option value="Activo">Activo</option>
+                  <option value="Inactivo">Inactivo</option>
                 </select>
               </div>
             </div>
@@ -309,8 +310,8 @@ if ($response === false) {
               <div class="col-sm-6">
                 <label for="">Estado</label>
                 <select name="select" id="crearselect" class="form-control">
-                    <option value="Activo">Activo</option>
-                    <option value="Inactivo">Inactivo</option>
+                  <option value="Activo">Activo</option>
+                  <option value="Inactivo">Inactivo</option>
                 </select>
               </div>
             </div>
@@ -328,7 +329,7 @@ if ($response === false) {
 
 
 
-            
+
           </form>
         </div>
         <div class="modal-footer">
@@ -459,7 +460,7 @@ if ($response === false) {
           myHeaders.append("Content-Type", "application/json");
 
           var raw = JSON.stringify({
-            
+
             "nomCompania": $('#crearProvNameC').val(),
             "direccion": $('#crearProvDirec').val(),
             "telefono": $('#crearProvTelef').val(),
@@ -468,7 +469,7 @@ if ($response === false) {
             "estado": $('#crearselect').val(),
             "ntarjeta": $('#crearProvTarjeta').val(),
             "ruc": $('#crearProvRuc').val(),
-        
+
           });
           //console.log(raw)
           var requestOptions = {

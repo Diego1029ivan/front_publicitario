@@ -39,8 +39,8 @@ if ($response === false) {
   <meta name="description" content="">
   <meta name="author" content="">
 
-  
-  <title>Pub-marca</title>
+  <?php include('componentes/title.php'); ?>
+
 
   <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -395,7 +395,7 @@ if ($response === false) {
 
       // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
       var apiUrl = 'http://localhost:75/admin/marca/' + marcaId;
-      //console.log(apiUrl,categoryId)
+      console.log(apiUrl, marcaId)
       Swal.fire({
         title: 'Estas seguro?',
         text: "Se borrará la marca",
@@ -424,9 +424,9 @@ if ($response === false) {
           })
 
 
-          setTimeout(function() {
-            location.reload(); // Recargar la página después de un tiempo de espera
-          }, 1500);
+          // setTimeout(function() {
+          //   location.reload(); // Recargar la página después de un tiempo de espera
+          // }, 1500);
 
         }
 
