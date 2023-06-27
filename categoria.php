@@ -39,7 +39,9 @@ if ($response === false) {
   <meta name="description" content="">
   <meta name="author" content="">
 
+
   <?php include('componentes/title.php'); ?>
+
 
   <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">

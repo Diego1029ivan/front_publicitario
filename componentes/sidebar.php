@@ -4,7 +4,9 @@
   <!-- Sidebar - Brand -->
   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
     <div class="sidebar-brand-icon rotate-n-15">
-      <i class="fas fa-vihara"></i>
+
+        <i class="fas fa-vihara "></i>
+
     </div>
     <div class="sidebar-brand-text mx-3">Publicitario</div>
   </a>
@@ -110,11 +112,14 @@
   </div>
 
 
-  <!-- Nav Item - Productos Collapse Menu -->
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProv" aria-expanded="true" aria-controls="collapseProv">
-      <i class="fas fa-shopping-basket"></i>
-      <span>Descripción</span>
+
+<!-- Nav Item - Productos Collapse Menu -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProv"
+        aria-expanded="true" aria-controls="collapseProv">
+        <i class="fas fa-shopping-basket"></i>
+        <span>Compras</span>
+
     </a>
     <div id="collapseProv" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
@@ -123,10 +128,49 @@
 
       </div>
     </div>
-  </li>
+
+    
+</li>
+<!-- Nav Item - Productos Collapse Menu -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseListado"
+        aria-expanded="true" aria-controls="collapseProv">
+        <i class="fas fa-shopping-basket"></i>
+        <span>Detalle</span>
+    </a>
+    
+    <div id="collapseListado" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Lista:</h6>
+            <a class="collapse-item" href="./listado_compras.php">Listado de compras</a>
+            
+        </div>
+    </div>
+</li>
 
 
 
+<hr class="sidebar-divider">
+  <!-- Heading -->
+  <div class="sidebar-heading">
+    Proveedores
+  </div>
+<!-- Nav Item - Productos Collapse Menu -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseListadoV"
+        aria-expanded="true" aria-controls="collapseProv">
+        <i class="fas fa-shopping-basket"></i>
+        <span>Ventas:</span>
+    </a>
+    
+    <div id="collapseListadoV" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Lista:</h6>
+            <a class="collapse-item" href="./detalle_venta.php">Detalle Venta</a>
+            
+        </div>
+    </div>
+</li>
   <!-- Divider -->
   <hr class="sidebar-divider">
   <!-- Heading -->
