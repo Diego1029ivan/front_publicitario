@@ -109,6 +109,32 @@
     </div>
   </li>
 
+  <hr class="sidebar-divider">
+  <!-- Heading -->
+  <div class="sidebar-heading">
+    Proveedores
+
+
+</div>
+
+
+<!-- Nav Item - Productos Collapse Menu -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProv"
+        aria-expanded="true" aria-controls="collapseProv">
+        <i class="fas fa-shopping-basket"></i>
+        <span>Descripción</span>
+    </a>
+    <div id="collapseProv" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Modificación:</h6>
+            <a class="collapse-item" href="./proveedor.php">Proveedor</a>
+            
+        </div>
+    </div>
+</li>
+
+
 
   <!-- Divider -->
   <hr class="sidebar-divider">
