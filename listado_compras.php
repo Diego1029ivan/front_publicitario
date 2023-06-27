@@ -82,7 +82,7 @@ if ($response === false) {
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
-            
+
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="categoriaTable" width="100%" cellspacing="0">
@@ -119,14 +119,14 @@ if ($response === false) {
                         <td><?= $compra->descripcion ?></td>
                         <td><?= $compra->total ?></td>
                         <td><?= $compra->fecha ?></td>
-                        <td><?= $compra->usuario->nombre." ".$compra->usuario->apellido ?></td>
+                        <td><?= $compra->usuario->nombre . " " . $compra->usuario->apellido ?></td>
                         <td><?= $compra->usuario->dni ?></td>
                         <td><?= $compra->estado ?></td>
 
 
                         <td>
                           <a href="#" data-toggle="modal" data-target="#editModal" data-id="<?= $compra->idCompra ?>"><i class="fas fa-edit"></i></a>
-                         
+
                         </td>
 
 
@@ -191,7 +191,7 @@ if ($response === false) {
         </div>
         <div class="modal-body">
           <form class="user">
-            
+
             <div class="form-group row">
               <div class="col-sm-6 mb-3 mb-sm-0">
                 <label for="">Id</label>
@@ -203,14 +203,14 @@ if ($response === false) {
               </div>
               <div class="col-sm-6">
                 <label for="">Comprador</label>
-                <input type="text" disabled class="form-control form-control-user" id="editComC" >
+                <input type="text" disabled class="form-control form-control-user" id="editComC">
               </div>
             </div>
 
             <div class="form-group row">
               <div class="col-sm-6 mb-3 mb-sm-0">
                 <label for="">Estado</label>
-                <select name="select" id="editselect" class="form-control">
+                <select name="editselect" id="editselect" class="form-control">
                   <option value="Pendiente">Pendiente</option>
                   <option value="Pagado">Pagado</option>
                   <option value="Cancelado">Cancelado</option>
@@ -218,11 +218,9 @@ if ($response === false) {
               </div>
               <div class="col-sm-6">
                 <label for="">Costo de compra</label>
-                <input type="number" disabled class="form-control form-control-user"id="editComCosto">
+                <input type="number" disabled class="form-control form-control-user" id="editComCosto">
               </div>
             </div>
-
-
 
           </form>
         </div>
@@ -235,7 +233,7 @@ if ($response === false) {
     </div>
   </div>
 
- 
+
 
 
 
@@ -281,12 +279,12 @@ if ($response === false) {
             $('#editComIdUsuario').val(result.usuario.idUsuario);
             $('#editComDesc').val(result.descripcion);
             $('#editComFecha').val(result.fecha);
-            $('#editComC').val(result.usuario.nombre+" "+result.usuario.apellido);
+            $('#editComC').val(result.usuario.nombre + " " + result.usuario.apellido);
             $('#editselect').val(result.estado);
             $('#editComCosto').val(result.total);
             //console.log(result)
 
-            
+
           })
           .catch(error => console.log('error', error));
       });
@@ -308,21 +306,21 @@ if ($response === false) {
 
           let raw = JSON.stringify({
 
-            
-              "idCompra": $('#editComId').val(),
-              "descripcion": $('#editComDesc').val(),
-              "total": $('#editComCosto').val(),
-              "fecha": $('#editComFecha').val(),
-              "usuario": {
-                  "idUsuario": $('#editComIdUsuario').val()
-                  
-              },
-              "distrito": {
-                  "idDistrito": $('#editComIdDistrito').val(),
-              },
-              "estado": $('#editselect').val(),
-          
-          
+
+            "idCompra": $('#editComId').val(),
+            "descripcion": $('#editComDesc').val(),
+            "total": $('#editComCosto').val(),
+            "fecha": $('#editComFecha').val(),
+            "usuario": {
+              "idUsuario": $('#editComIdUsuario').val()
+
+            },
+            "distrito": {
+              "idDistrito": $('#editComIdDistrito').val(),
+            },
+            "estado": $('#editselect').val(),
+
+
           });
           //console.log(raw)
           let requestOptions = {
@@ -352,7 +350,6 @@ if ($response === false) {
       })
 
     });
-
   </script>
 </body>
 

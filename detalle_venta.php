@@ -2,7 +2,7 @@
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://localhost:75/admin/usuario', // Agregué "http://" para especificar el protocolo
+  CURLOPT_URL => 'http://localhost:75/admin/venta', // Agregué "http://" para especificar el protocolo
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -17,7 +17,7 @@ $response = curl_exec($curl);
 $curl2 = curl_init();
 
 curl_setopt_array($curl2, array(
-  CURLOPT_URL => 'http://localhost:75/admin/perfil', // Agregué "http://" para especificar el protocolo
+  CURLOPT_URL => 'http://localhost:75/admin/distrito', // Agregué "http://" para especificar el protocolo
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -100,14 +100,14 @@ if ($response2 === false) {
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Usuario</h1>
-          <p class="mb-4">Desarrollo de CRUD para usuario</a>.</p>
+          <h1 class="h3 mb-2 text-gray-800">Venta</h1>
+          <p class="mb-4">Desarrollo de CRUD Venta</a>.</p>
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
 
-              <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#crearModal">Crear</a>
+
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -116,15 +116,18 @@ if ($response2 === false) {
                     <tr>
                       <th>ID</th>
                       <th>Nombre</th>
-                      <th>Apellido</th>
-                      <th>Correo</th>
                       <th>Celular</th>
-                      <th>Dirección</th>
-                      <th>DNI</th>
-                      <th>Rol</th>
+                      <th>Correo</th>
+                      <th>Direccion</th>
+                      <th>Distrito</th>
+                      <th>Provincia</th>
+                      <th>Departamento</th>
+                      <th>Venta</th>
+                      <th>Comprovante</th>
+                      <th>fechaHora</th>
+                      <th>Total</th>
                       <th>Estado</th>
                       <th>Acciones</th>
-
                     </tr>
 
                   </thead>
@@ -132,32 +135,39 @@ if ($response2 === false) {
                     <tr>
                       <th>ID</th>
                       <th>Nombre</th>
-                      <th>Apellido</th>
-                      <th>Correo</th>
                       <th>Celular</th>
-                      <th>Dirección</th>
-                      <th>DNI</th>
-                      <th>Rol</th>
+                      <th>Correo</th>
+                      <th>Direccion</th>
+                      <th>Distrito</th>
+                      <th>Provincia</th>
+                      <th>Departamento</th>
+                      <th>Venta</th>
+                      <th>Comprovante</th>
+                      <th>fechaHora</th>
+                      <th>Total</th>
                       <th>Estado</th>
                       <th>Acciones</th>
                     </tr>
                   </tfoot>
                   <tbody>
-                    <?php foreach ($decodedResponse as $usuario) { ?>
+                    <?php foreach ($decodedResponse as $venta) { ?>
                       <tr>
-                        <td><?= $usuario->idUsuario ?></td>
-                        <td><?= $usuario->nombre ?></td>
-                        <td><?= $usuario->apellido ?></td>
-                        <td><?= $usuario->correo ?></td>
-                        <td><?= $usuario->celular ?></td>
-                        <td><?= $usuario->direccion ?></td>
-                        <td><?= $usuario->dni ?></td>
-                        <td><?= $usuario->perfil->nombres ?></td>
-                        <td><?= $usuario->estado ?></td>
-
+                        <td><?= $venta->idVenta ?></td>
+                        <td><?= $venta->usuario->nombre ?></td>
+                        <td><?= $venta->usuario->celular ?></td>
+                        <td><?= $venta->usuario->correo ?></td>
+                        <td><?= $venta->usuario->direccion ?></td>
+                        <td><?= $venta->distrito->nombre ?></td>
+                        <td><?= $venta->distrito->provincia->nombre ?></td>
+                        <td><?= $venta->distrito->provincia->departamento->nombre ?></td>
+                        <td><?= $venta->tipoVenta ?></td>
+                        <td><?= $venta->tipoComprobante ?></td>
+                        <td><?= $venta->fechaHora ?></td>
+                        <td><?= $venta->total ?></td>
+                        <td><?= $venta->estado ?></td>
                         <td>
-                          <a href="#" data-toggle="modal" data-target="#editModal" data-id="<?= $usuario->idUsuario ?>"><i class="fas fa-edit"></i></a>
-                          <a href="#" class="borrarUsuario" data-id="<?= $usuario->idUsuario ?>"><i class="fas fa-trash-alt"></i></a>
+                          <a href="#" data-toggle="modal" data-target="#editModal" data-id="<?= $venta->idVenta ?>"><i class="fas fa-edit"></i></a>
+                          <!-- <a href="#" class="borrarUsuario" data-id="<?= $venta->idVenta ?>"><i class="fas fa-trash-alt"></i></a> -->
                         </td>
                       </tr>
                     <?php } ?>
@@ -212,7 +222,7 @@ if ($response2 === false) {
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Editar el Usuario</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Editar Venta</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -224,51 +234,13 @@ if ($response2 === false) {
               <label for="">ID</label>
               <input type="text" disabled class="form-control form-control-user" id="editUsuarioId">
             </div>
-            <div class="row">
-              <div class="form-group col-sm-6">
-                <label for="crearUsuarioName">Nombre</label>
-                <input type="text" class="form-control form-control-user" id="crearUsuarioName">
-              </div>
-              <div class="form-group col-sm-6">
-                <label for="crearUsuarioapellido">Apellido</label>
-                <input type="text" class="form-control form-control-user" id="crearUsuarioapellido">
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="form-group col-sm-6">
-                <label for="crearUsuariocorreo">Correo</label>
-                <input type="email" class="form-control form-control-user" id="crearUsuariocorreo">
-              </div>
-              <div class="form-group col-sm-6">
-                <label for="crearUsuariocelular">Celular</label>
-                <input type="number" class="form-control form-control-user" id="crearUsuariocelular">
-              </div>
-
-            </div>
-            <div class="form-group">
-              <label for="crearUsuariodireccion">Dirreción</label>
-              <input type="text" class="form-control form-control-user" id="crearUsuariodireccion">
-            </div>
-
-            <div class="form-group">
-              <label for="crearUsuarioDNI">DNI</label>
-              <input type="text" class="form-control form-control-user" id="crearUsuarioDNI">
-            </div>
-            <div class="row">
-              <div class="form-group col-sm-6">
-                <label for="crearRol">Rol</label>
-                <select name="select" id="crearRol" class="form-control">
-                  <?php foreach ($decodedResponse2 as $rol) { ?>
-                    <option value="<?= $rol->idperfil ?>"><?= $rol->nombres ?></option>
-                  <?php } ?>
-                </select>
-              </div>
-              <div class="form-group col-sm-6">
+            <div class="form-group row">
+              <div class="col-sm-6 mb-3 mb-sm-0">
                 <label for="">Estado</label>
-                <select name="select" id="crearselect" class="form-control">
-                  <option value="Activo">Activo</option>
-                  <option value="Inactivo">Inactivo</option>
+                <select name="editselect" id="editselect" class="form-control">
+                  <option value="Pendiente">Pendiente</option>
+                  <option value="Pagado">Pagado</option>
+                  <option value="Cancelado">Cancelado</option>
                 </select>
               </div>
             </div>
@@ -284,77 +256,7 @@ if ($response2 === false) {
     </div>
   </div>
 
-  <!-- crear Modal-->
-  <div class="modal fade" id="crearModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Crear el Usuario</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form class="user">
-            <div class="row">
-              <div class="form-group col-sm-6">
-                <label for="crearUsuarioName1">Nombre</label>
-                <input type="text" class="form-control form-control-user" id="crearUsuarioName1">
-              </div>
-              <div class="form-group col-sm-6">
-                <label for="crearUsuarioapellido1">Apellido</label>
-                <input type="text" class="form-control form-control-user" id="crearUsuarioapellido1">
-              </div>
-            </div>
 
-            <div class="row">
-              <div class="form-group col-sm-6">
-                <label for="crearUsuariocorreo1">Correo</label>
-                <input type="email" class="form-control form-control-user" id="crearUsuariocorreo1">
-              </div>
-              <div class="form-group col-sm-6">
-                <label for="crearUsuariocelular1">Celular</label>
-                <input type="number" class="form-control form-control-user" id="crearUsuariocelular1">
-              </div>
-
-            </div>
-            <div class="form-group">
-              <label for="crearUsuariodireccion1">Dirreción</label>
-              <input type="text" class="form-control form-control-user" id="crearUsuariodireccion1">
-            </div>
-
-            <div class="form-group">
-              <label for="crearUsuarioDNI1">DNI</label>
-              <input type="text" class="form-control form-control-user" id="crearUsuarioDNI1">
-            </div>
-            <div class="row">
-              <div class="form-group col-sm-6">
-                <label for="crearRol">Rol</label>
-                <select name="select" id="crearRol1" class="form-control">
-                  <?php foreach ($decodedResponse2 as $rol) { ?>
-                    <option value="<?= $rol->idperfil ?>"><?= $rol->nombres ?></option>
-                  <?php } ?>
-                </select>
-              </div>
-              <div class="form-group col-sm-6">
-                <label for="">Estado</label>
-                <select name="select" id="crearselect1" class="form-control">
-                  <option value="Activo">Activo</option>
-                  <option value="Inactivo">Inactivo</option>
-                </select>
-              </div>
-            </div>
-
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="#" id="crearBtn">Guardar</a>
-        </div>
-
-      </div>
-    </div>
-  </div>
 
 
   <!-- Bootstrap core JavaScript-->
@@ -375,13 +277,19 @@ if ($response2 === false) {
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
   <script>
+    let tipoVenta = "";
+    let iddistroto = 0;
+    let tipoComprobante = "";
+    let fechaHora = "";
+    let total = "";
+    let idUsuario = "";
     $(document).ready(function() {
       $('#editModal').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget);
         var usuarioId = button.data('id');
 
         // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
-        var apiUrl = 'http://localhost:75/admin/usuario/' + usuarioId;
+        var apiUrl = 'http://localhost:75/admin/venta/' + usuarioId;
 
         var requestOptions = {
           method: 'GET',
@@ -391,15 +299,14 @@ if ($response2 === false) {
         fetch(apiUrl, requestOptions)
           .then(response => response.json())
           .then(result => {
-            $('#editUsuarioId').val(result.idUsuario);
-            $('#crearUsuarioName').val(result.nombre);
-            $('#crearUsuarioapellido').val(result.apellido);
-            $('#crearUsuariocorreo').val(result.correo);
-            $('#crearUsuariocelular').val(result.celular);
-            $('#crearUsuariodireccion').val(result.direccion);
-            $('#crearUsuarioDNI').val(result.dni);
-            $('#crearRol').val(result.perfil.idperfil);
-            $('#select').val(result.estado);
+            tipoVenta = result.tipoVenta;
+            idUsuario = result.usuario.idUsuario;
+            iddistroto = result.distrito.idDistrito;
+            tipoComprobante = result.tipoComprobante;
+            fechaHora = result.fechaHora;
+            total = result.total;
+            $('#editUsuarioId').val(result.idVenta);
+            $('#editselect').val(result.estado);
           })
           .catch(error => console.log('error', error));
       });
@@ -407,7 +314,7 @@ if ($response2 === false) {
     $('#guardarBtn').click(function() {
       Swal.fire({
         title: 'Estas seguro?',
-        text: "Actualizará el usuario",
+        text: "Actualizará La Venta",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -420,17 +327,18 @@ if ($response2 === false) {
           myHeaders.append("Content-Type", "application/json");
 
           let raw = JSON.stringify({
-            "idUsuario": $('#editUsuarioId').val(),
-            "nombre": $('#crearUsuarioName').val(),
-            "apellido": $('#crearUsuarioapellido').val(),
-            "correo": $('#crearUsuariocorreo').val(),
-            "celular": $('#crearUsuariocelular').val(),
-            "direccion": $('#crearUsuariodireccion').val(),
-            "dni": $('#crearUsuarioDNI').val(),
-            "perfil": {
-              "idperfil": $('#crearRol').val()
+            "idVenta": $('#editUsuarioId').val(),
+            "usuario": {
+              "idUsuario": idUsuario
             },
-            "estado": $('#crearselect').val()
+            "distrito": {
+              "idDistrito": iddistroto
+            },
+            "tipoVenta": tipoVenta,
+            "tipoComprobante": tipoComprobante,
+            "fechaHora": fechaHora,
+            "total": total,
+            "estado": $('#editselect').val()
           });
           //console.log(raw)
           var requestOptions = {
@@ -439,123 +347,18 @@ if ($response2 === false) {
             body: raw,
             redirect: 'follow'
           };
-
-          fetch("http://localhost:75/admin/usuario", requestOptions)
+          console.log(raw);
+          fetch("http://localhost:75/admin/venta", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Usuario Actualizado',
+            title: 'Venta Actualizado',
             showConfirmButton: false,
             timer: 1400
           })
 
           $('#editModal').modal('hide');
-          setTimeout(function() {
-            location.reload(); // Recargar la página después de un tiempo de espera
-          }, 1500);
-
-        }
-
-      })
-
-    });
-
-    $('#crearBtn').click(function() {
-      Swal.fire({
-        title: 'Estas seguro?',
-        text: "Actualizará el usuario",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, actualizar!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          let myHeaders = new Headers();
-          myHeaders.append("Content-Type", "application/json");
-
-          let raw = JSON.stringify({
-
-            "nombre": $('#crearUsuarioName1').val(),
-            "apellido": $('#crearUsuarioapellido1').val(),
-            "correo": $('#crearUsuariocorreo1').val(),
-            "celular": $('#crearUsuariocelular1').val(),
-            "direccion": $('#crearUsuariodireccion1').val(),
-            "dni": $('#crearUsuarioDNI1').val(),
-            "perfil": {
-              "idperfil": $('#crearRol1').val()
-            },
-
-            "estado": $('#crearselect1').val()
-          });
-
-          var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-          };
-
-          console.log(raw);
-
-          fetch("http://localhost:75/admin/usuario", requestOptions)
-            .catch(error => console.log('error', error));
-          Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Usuario Actualizado',
-            showConfirmButton: false,
-            timer: 1400
-          })
-
-          $('#crearModal').modal('hide');
-          setTimeout(function() {
-            location.reload();
-          }, 1500);
-
-        }
-
-      })
-
-    });
-
-    $('.borrarUsuario').click(function(event) {
-
-
-      var usuarioId = $(this).data('id'); //reconocer el numero directo del id
-
-      // Aquí realizas la solicitud para obtener los datos de los usuarios con el ID correspondiente
-      var apiUrl = 'http://localhost:75/admin/usuario/' + usuarioId;
-
-      Swal.fire({
-        title: 'Estas seguro?',
-        text: "Se borrará el usuario",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, Borrar!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-
-          var requestOptions = {
-            method: 'DELETE',
-            redirect: 'follow'
-          };
-
-          fetch(apiUrl, requestOptions)
-            .then(response => response.text())
-            .catch(error => console.log('error', error));
-          Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Usuario Borrado',
-            showConfirmButton: false,
-            timer: 1400
-          })
-
-
           setTimeout(function() {
             location.reload(); // Recargar la página después de un tiempo de espera
           }, 1500);
