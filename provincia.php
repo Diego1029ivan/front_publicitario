@@ -1,10 +1,8 @@
 <?php
-
-/**GET DE PRODUCTO*/
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://localhost:75/admin/producto', // Agregué "http://" para especificar el protocolo
+  CURLOPT_URL => 'http://localhost:75/admin/provincia', // Agregué "http://" para especificar el protocolo
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -24,62 +22,6 @@ if ($response === false) {
   $decodedResponse = json_decode($response);
 
   if ($decodedResponse === null) {
-    echo 'Error al decodificar la respuesta JSON.';
-  }
-}
-
-/**GET DE CATEGORÍA*/
-$curl = curl_init();
-
-curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://localhost:75/admin/categoria', // Agregué "http://" para especificar el protocolo
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '',
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'GET',
-));
-
-$response = curl_exec($curl);
-
-curl_close($curl);
-
-if ($response === false) {
-  echo 'Error en la solicitud cURL: ' . curl_error($curl);
-} else {
-  $decodeCate = json_decode($response);
-
-  if ($decodeCate === null) {
-    echo 'Error al decodificar la respuesta JSON.';
-  }
-}
-
-/**GET DE MARCA*/
-$curl = curl_init();
-
-curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://localhost:75/admin/marca', // Agregué "http://" para especificar el protocolo
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '',
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'GET',
-));
-
-$response = curl_exec($curl);
-
-curl_close($curl);
-
-if ($response === false) {
-  echo 'Error en la solicitud cURL: ' . curl_error($curl);
-} else {
-  $decodeMarca = json_decode($response);
-
-  if ($decodeMarca === null) {
     echo 'Error al decodificar la respuesta JSON.';
   }
 }
@@ -130,8 +72,8 @@ if ($response === false) {
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Categorías</h1>
-          <p class="mb-4">Desarrollo de CRUD para categorías de productos</a>.</p>
+          <h1 class="h3 mb-2 text-gray-800">Provincia</h1>
+          <p class="mb-4">Desarrollo de CRUD para Provincia</a>.</p>
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
@@ -145,45 +87,35 @@ if ($response === false) {
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>Nombre</th>
-                      <th>Marca</th>
-                      <th>Categoría</th>
-                      <th>Cantidad</th>
-                      <th>Fec. Caducidad</th>
+                      <th>Provincia</th>
+                      <th>Departamento</th>
                       <th>Estado</th>
                       <th>Acciones</th>
+
                     </tr>
 
                   </thead>
                   <tfoot>
                     <tr>
                       <th>ID</th>
-                      <th>Nombre</th>
-                      <th>Marca</th>
-                      <th>Categoría</th>
-                      <th>Cantidad</th>
-                      <th>Fec. Caducidad</th>
+                      <th>Provincia</th>
+                      <th>Departamento</th>
                       <th>Estado</th>
                       <th>Acciones</th>
-
 
                     </tr>
                   </tfoot>
                   <tbody>
-                    <?php foreach ($decodedResponse as $producto) { ?>
+                    <?php foreach ($decodedResponse as $provincia) { ?>
                       <tr>
-                        <td><?= $producto->idProducto ?></td>
-                        <td><?= $producto->nombres ?></td>
-                        <td><?= $producto->marca->nombres ?></td>
-                        <td><?= $producto->categoria->nombres ?></td>
-                        <td><?= $producto->cantidad ?></td>
-                        <td><?= $producto->fechaCaducidad ?></td>
-                        <td><?= $producto->estado ?></td>
-
+                        <td><?= $provincia->idProvincia ?></td>
+                        <td><?= $provincia->nombre ?></td>
+                        <td><?= $provincia->departamento->nombre ?></td>
+                        <td><?= $provincia->estado ?></td>
 
                         <td>
-                          <a href="#" data-toggle="modal" data-target="#editModal" data-id="<?= $producto->idProducto ?>"><i class="fas fa-edit"></i></a>
-                          <a href="#" class="borrarProducto" data-id="<?= $producto->idProducto ?>"><i class="fas fa-trash-alt"></i></a>
+                          <a href="#" data-toggle="modal" data-target="#editModal" data-id="<?= $provincia->idProvincia ?>"><i class="fas fa-edit"></i></a>
+                          <a href="#" class="borrarCategoria" data-id="<?= $provincia->idProvincia ?>"><i class="fas fa-trash-alt"></i></a>
                         </td>
 
 
@@ -203,7 +135,9 @@ if ($response === false) {
       <!-- End of Main Content -->
 
       <!-- Footer -->
+      <!-- Footer -->
       <?php include('componentes/footer.php'); ?>
+      <!-- End of Footer -->
       <!-- End of Footer -->
 
     </div>
@@ -241,7 +175,7 @@ if ($response === false) {
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Editar Producto</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Editar El departamento</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -249,55 +183,21 @@ if ($response === false) {
         <div class="modal-body">
           <form class="user">
             <div class="form-group">
-              <label for="">Nombre</label>
-              <input type="text" class="form-control form-control-user" id="editProdName">
+
+              <label for="">ID</label>
+              <input type="text" disabled class="form-control form-control-user" id="editCategoryId">
+            </div>
+            <div class="form-group">
+              <label for="">Departamento</label>
+              <input type="text" class="form-control form-control-user" id="editCategoryName">
 
             </div>
-            <div class="form-group row">
-
-              <div class="col-sm-6 mb-3 mb-sm-0">
-                <label for="">ID</label>
-                <input type="text" disabled class="form-control form-control-user" id="editProdId">
-              </div>
-              <div class="col-sm-6">
-                <label for="">Cantidad</label>
-                <input type="number" class="form-control form-control-user" id="editProdCant">
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <div class="col-sm-6 mb-3 mb-sm-0">
-                <label for="">Categoría</label>
-                <select name="selecteditCat" id="selecteditCat" class="form-control">
-                  <?php foreach ($decodeCate as $cate) { ?>
-                    <option value="<?= $cate->idCategoria ?>"><?= $cate->nombres ?></option>
-
-                  <?php } ?>
-                </select>
-              </div>
-              <div class="col-sm-6">
-                <label for="">Marca</label>
-                <select name="selecteditMarca" id="selecteditMarca" class="form-control">
-                  <?php foreach ($decodeMarca as $marca) { ?>
-                    <option value="<?= $marca->idMarca ?>"><?= $marca->nombres ?></option>
-
-                  <?php } ?>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <div class="col-sm-6 mb-3 mb-sm-0">
-                <label for="">Estado</label>
-                <select name="select" id="editselect" class="form-control">
-                  <option value="Activo">Activo</option>
-                  <option value="Inactivo">Inactivo</option>
-                </select>
-              </div>
-              <div class="col-sm-6">
-                <label for="">Fecha</label>
-                <input type="date" class="form-control form-control-user" id="editProdFecha">
-              </div>
+            <div class="form-group">
+              <label for="">Estado</label>
+              <select name="select" id="select" class="form-control">
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+              </select>
             </div>
 
 
@@ -318,7 +218,7 @@ if ($response === false) {
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Editar Producto</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Crear El departamento</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -326,55 +226,18 @@ if ($response === false) {
         <div class="modal-body">
           <form class="user">
 
-            <div class="form-group row">
-              <div class="col-sm-6 mb-3 mb-sm-0">
-                <label for="">Nombre</label>
-                <input type="text" class="form-control form-control-user" id="crearProdName">
-              </div>
-              <div class="col-sm-6">
-                <label for="">Cantidad</label>
-                <input type="number" class="form-control form-control-user" id="crearProdCant">
-              </div>
+            <div class="form-group">
+              <label for="">Departamento</label>
+              <input type="text" class="form-control form-control-user" id="crearCategoryName">
+
             </div>
-
-            <div class="form-group row">
-              <div class="col-sm-6 mb-3 mb-sm-0">
-                <label for="">Categoría</label>
-                <select name="selectCat" id="selectCat" class="form-control">
-                  <?php foreach ($decodeCate as $cate) { ?>
-                    <option value="<?= $cate->idCategoria ?>"><?= $cate->nombres ?></option>
-
-                  <?php } ?>
-                </select>
-              </div>
-              <div class="col-sm-6">
-                <label for="">Marca</label>
-                <select name="selectMarca" id="selectMarca" class="form-control">
-                  <?php foreach ($decodeMarca as $marca) { ?>
-                    <option value="<?= $marca->idMarca ?>"><?= $marca->nombres ?></option>
-
-                  <?php } ?>
-                </select>
-              </div>
+            <div class="form-group">
+              <label for="">Estado</label>
+              <select name="select" id="crearselect" class="form-control">
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+              </select>
             </div>
-
-            <div class="form-group row">
-              <div class="col-sm-6 mb-3 mb-sm-0">
-                <label for="">Estado</label>
-                <select name="select" id="crearselect" class="form-control">
-                  <option value="Activo">Activo</option>
-                  <option value="Inactivo">Inactivo</option>
-                </select>
-              </div>
-              <div class="col-sm-6">
-                <label for="">Fecha</label>
-                <input type="date" class="form-control form-control-user" id="crearProdFecha">
-              </div>
-            </div>
-
-
-
-
           </form>
         </div>
         <div class="modal-footer">
@@ -407,13 +270,13 @@ if ($response === false) {
   <script>
     $(document).ready(function() {
       $('#editModal').on('show.bs.modal', function(event) {
-        let button = $(event.relatedTarget);
-        let prodId = button.data('id');
+        var button = $(event.relatedTarget);
+        var provinciaId = button.data('id');
 
         // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
-        let apiUrl = 'http://localhost:75/admin/producto/' + prodId;
+        var apiUrl = 'http://localhost:75/admin/provincia/' + provinciaId;
 
-        let requestOptions = {
+        var requestOptions = {
           method: 'GET',
           redirect: 'follow'
         };
@@ -421,15 +284,9 @@ if ($response === false) {
         fetch(apiUrl, requestOptions)
           .then(response => response.json())
           .then(result => {
-
-            $('#editProdId').val(result.idProducto);
-            $('#editProdName').val(result.nombres);
-            $('#editProdCant').val(result.cantidad);
-            $('#selecteditMarca').val(result.marca.idMarca);
-            $('#selecteditCat').val(result.categoria.idCategoria);
-            $('#editProdFecha').val(result.fechaCaducidad);
-
-            $('#editselect').val(result.estado);
+            $('#editCategoryId').val(result.idProvincia);
+            $('#editCategoryName').val(result.nombre);
+            $('#select').val(result.estado);
           })
           .catch(error => console.log('error', error));
       });
@@ -437,7 +294,7 @@ if ($response === false) {
     $('#guardarBtn').click(function() {
       Swal.fire({
         title: 'Estas seguro?',
-        text: "Actualizará el Producto",
+        text: "Actualizará el provincia",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -446,40 +303,28 @@ if ($response === false) {
       }).then((result) => {
         if (result.isConfirmed) {
 
-          let myHeaders = new Headers();
+          var myHeaders = new Headers();
           myHeaders.append("Content-Type", "application/json");
 
-          let raw = JSON.stringify({
-
-            "idProducto": $('#editProdId').val(),
-            "nombres": $('#editProdName').val(),
-            "marca": {
-              "idMarca": $('#selecteditMarca').val()
-            },
-            "categoria": {
-              "idCategoria": $('#selecteditCat').val()
-            },
-            "cantidad": $('#editProdCant').val(),
-            "fechaCaducidad": $('#editProdFecha').val(),
-            "estado": $('#editselect').val()
-
-
-
+          var raw = JSON.stringify({
+            "idProvincia": $('#editCategoryId').val(),
+            "nombre": $('#editCategoryName').val(),
+            "estado": $('#select').val()
           });
           //console.log(raw)
-          let requestOptions = {
+          var requestOptions = {
             method: 'PUT',
             headers: myHeaders,
             body: raw,
             redirect: 'follow'
           };
 
-          fetch("http://localhost:75/admin/producto", requestOptions)
+          fetch("http://localhost:75/admin/provincia", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Producto Creado',
+            title: 'Provincia Actualizada',
             showConfirmButton: false,
             timer: 1400
           })
@@ -498,7 +343,7 @@ if ($response === false) {
     $('#crearBtn').click(function() {
       Swal.fire({
         title: 'Estas seguro?',
-        text: "Creará la categoría",
+        text: "Creará la Provincia",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -512,16 +357,7 @@ if ($response === false) {
 
           var raw = JSON.stringify({
 
-
-            "nombres": $('#crearProdName').val(),
-            "marca": {
-              "idMarca": $('#selectMarca').val(),
-            },
-            "categoria": {
-              "idCategoria": $('#selectCat').val(),
-            },
-            "cantidad": $('#crearProdCant').val(),
-            "fechaCaducidad": $('#crearProdFecha').val(),
+            "nombre": $('#crearCategoryName').val(),
             "estado": $('#crearselect').val()
           });
           //console.log(raw)
@@ -532,12 +368,12 @@ if ($response === false) {
             redirect: 'follow'
           };
 
-          fetch("http://localhost:75/admin/producto", requestOptions)
+          fetch("http://localhost:75/admin/provincia", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Producto creado',
+            title: 'Provincia Actualizada',
             showConfirmButton: false,
             timer: 1400
           })
@@ -553,17 +389,17 @@ if ($response === false) {
 
     });
 
-    $('.borrarProducto').click(function(event) {
+    $('.borrarCategoria').click(function(event) {
 
 
-      var prodId = $(this).data('id'); //reconocer el numero directo del id
+      var departamentoId = $(this).data('id'); //reconocer el numero directo del id
 
       // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
-      var apiUrl = 'http://localhost:75/admin/producto/' + prodId;
+      var apiUrl = 'http://localhost:75/admin/provincia/' + departamentoId;
       //console.log(apiUrl,categoryId)
       Swal.fire({
         title: 'Estas seguro?',
-        text: "Se borrará el producto",
+        text: "Se borrará el departamento",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -583,7 +419,7 @@ if ($response === false) {
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Producto Borrado',
+            title: 'Categoría Borrada',
             showConfirmButton: false,
             timer: 1400
           })

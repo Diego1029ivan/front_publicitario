@@ -34,17 +34,11 @@
       <span>Usuarios</span>
     </a>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-
-
-
-
-
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Lista de usuarios:</h6>
         <a class="collapse-item" href="./usuario.php">Usuarios</a>
         <a class="collapse-item" href="./rol.php">Rol</a>
       </div>
-
     </div>
   </li>
 
@@ -113,30 +107,46 @@
     Proveedores
 
 
-</div>
+  </div>
 
 
-<!-- Nav Item - Productos Collapse Menu -->
-<li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProv"
-        aria-expanded="true" aria-controls="collapseProv">
-        <i class="fas fa-shopping-basket"></i>
-        <span>Descripción</span>
+  <!-- Nav Item - Productos Collapse Menu -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProv" aria-expanded="true" aria-controls="collapseProv">
+      <i class="fas fa-shopping-basket"></i>
+      <span>Descripción</span>
     </a>
     <div id="collapseProv" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Modificación:</h6>
-            <a class="collapse-item" href="./proveedor.php">Proveedor</a>
-            
-        </div>
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Modificación:</h6>
+        <a class="collapse-item" href="./proveedor.php">Proveedor</a>
+
+      </div>
     </div>
-</li>
+  </li>
 
 
 
   <!-- Divider -->
   <hr class="sidebar-divider">
-
+  <!-- Heading -->
+  <div class="sidebar-heading">
+    Emprasa
+  </div>
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEmpra" aria-expanded="true" aria-controls="collapseEmpra">
+      <i class="fas fa-shopping-basket"></i>
+      <span>Detalle Empresa</span>
+    </a>
+    <div id="collapseEmpra" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Modificación:</h6>
+        <a class="collapse-item" href="./departamento.php">Departamento</a>
+        <a class="collapse-item" href="./provincia.php">Provincia</a>
+        <a class="collapse-item" href="./distrito.php">Distrito</a>
+      </div>
+    </div>
+  </li>
   <!-- Heading -->
   <!-- <div class="sidebar-heading">
     Addons
