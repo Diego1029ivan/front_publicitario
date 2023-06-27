@@ -2,9 +2,9 @@
 <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
   <!-- Sidebar - Brand -->
-  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
     <div class="sidebar-brand-icon rotate-n-15">
-        <i class="fas fa-vihara"></i>
+      <i class="fas fa-vihara"></i>
     </div>
     <div class="sidebar-brand-text mx-3">Publicitario</div>
   </a>
@@ -36,7 +36,7 @@
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 
 
-        
+
 
 
       <div class="bg-white py-2 collapse-inner rounded">
@@ -72,37 +72,35 @@
     Productos
 
 
-</div>
+  </div>
 
 
-<!-- Nav Item - Productos Collapse Menu -->
-<li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTipo"
-        aria-expanded="true" aria-controls="collapseTipo">
-        <i class="fas fa-fw fa-cog"></i>
-        <span>Tipo de Producto</span>
+  <!-- Nav Item - Productos Collapse Menu -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTipo" aria-expanded="true" aria-controls="collapseTipo">
+      <i class="fas fa-fw fa-cog"></i>
+      <span>Tipo de Producto</span>
     </a>
     <div id="collapseTipo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Modificación:</h6>
-            <a class="collapse-item" href="./categoria.php">Categorías</a>
-            <a class="collapse-item" href="./marca.php">Marcas</a>
-        </div>
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Modificación:</h6>
+        <a class="collapse-item" href="./categoria.php">Categorías</a>
+        <a class="collapse-item" href="./marca.php">Marcas</a>
+      </div>
     </div>
-</li>
+  </li>
 
-<li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProd"
-        aria-expanded="true" aria-controls="collapseProd">
-        <i class="fas fa-box"></i>
-        <span>Producto</span>
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProd" aria-expanded="true" aria-controls="collapseProd">
+      <i class="fas fa-box"></i>
+      <span>Producto</span>
     </a>
     <div id="collapseProd" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Mostrar:</h6>
-            <a class="collapse-item" href="./producto.php">Producto</a>
-            
-        </div>
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Mostrar:</h6>
+        <a class="collapse-item" href="./producto.php">Producto</a>
+
+      </div>
 
 
 
