@@ -65,7 +65,7 @@
   <hr class="sidebar-divider">
   <!-- Heading -->
   <div class="sidebar-heading">
-    Productos
+    Transferencia
 
 
   </div>
@@ -103,13 +103,8 @@
     </div>
   </li>
 
-  <hr class="sidebar-divider">
-  <!-- Heading -->
-  <div class="sidebar-heading">
-    Proveedores
+  
 
-
-  </div>
 
 
 
@@ -150,11 +145,7 @@
 
 
 
-<hr class="sidebar-divider">
-  <!-- Heading -->
-  <div class="sidebar-heading">
-    Proveedores
-  </div>
+
 <!-- Nav Item - Productos Collapse Menu -->
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseListadoV"
@@ -175,7 +166,7 @@
   <hr class="sidebar-divider">
   <!-- Heading -->
   <div class="sidebar-heading">
-    Emprasa
+    Empresa
   </div>
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEmpra" aria-expanded="true" aria-controls="collapseEmpra">
@@ -188,6 +179,7 @@
         <a class="collapse-item" href="./departamento.php">Departamento</a>
         <a class="collapse-item" href="./provincia.php">Provincia</a>
         <a class="collapse-item" href="./distrito.php">Distrito</a>
+        <a class="collapse-item" href="./empresa.php">Empresa</a>
       </div>
     </div>
   </li>
@@ -233,10 +225,10 @@
   <!-- Divider -->
   <!-- <hr class="sidebar-divider d-none d-md-block"> -->
 
-  <!-- Sidebar Toggler (Sidebar) -->
-  <!-- <div class="text-center d-none d-md-inline">
+  <!-- Sidebar Toggler (Sidebar) --> 
+  <div class="text-center d-none d-md-inline">
     <button class="rounded-circle border-0" id="sidebarToggle"></button>
-  </div> -->
+  </div>
 
 
 </ul>
