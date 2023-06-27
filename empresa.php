@@ -2,7 +2,7 @@
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://localhost:75/admin/usuario', // Agregué "http://" para especificar el protocolo
+  CURLOPT_URL => 'http://localhost:75/admin/empresa', // Agregué "http://" para especificar el protocolo
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -100,8 +100,8 @@ if ($response2 === false) {
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Usuario</h1>
-          <p class="mb-4">Desarrollo de CRUD para usuario</a>.</p>
+          <h1 class="h3 mb-2 text-gray-800">Empresa</h1>
+          <p class="mb-4">Desarrollo de CRUD para Empresa</a>.</p>
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
@@ -116,15 +116,12 @@ if ($response2 === false) {
                     <tr>
                       <th>ID</th>
                       <th>Nombre</th>
-                      <th>Apellido</th>
-                      <th>Correo</th>
-                      <th>Celular</th>
                       <th>Dirección</th>
-                      <th>DNI</th>
-                      <th>Rol</th>
+                      <th>Telefono</th>
+                      <th>Correo</th>
+                      <th>Ruc</th>
                       <th>Estado</th>
                       <th>Acciones</th>
-
                     </tr>
 
                   </thead>
@@ -132,32 +129,28 @@ if ($response2 === false) {
                     <tr>
                       <th>ID</th>
                       <th>Nombre</th>
-                      <th>Apellido</th>
-                      <th>Correo</th>
-                      <th>Celular</th>
                       <th>Dirección</th>
-                      <th>DNI</th>
-                      <th>Rol</th>
+                      <th>Telefono</th>
+                      <th>Correo</th>
+                      <th>Ruc</th>
                       <th>Estado</th>
                       <th>Acciones</th>
                     </tr>
                   </tfoot>
                   <tbody>
-                    <?php foreach ($decodedResponse as $usuario) { ?>
+                    <?php foreach ($decodedResponse as $empresa) { ?>
                       <tr>
-                        <td><?= $usuario->idUsuario ?></td>
-                        <td><?= $usuario->nombre ?></td>
-                        <td><?= $usuario->apellido ?></td>
-                        <td><?= $usuario->correo ?></td>
-                        <td><?= $usuario->celular ?></td>
-                        <td><?= $usuario->direccion ?></td>
-                        <td><?= $usuario->dni ?></td>
-                        <td><?= $usuario->perfil->nombres ?></td>
-                        <td><?= $usuario->estado ?></td>
+                        <td><?= $empresa->idEmpresa ?></td>
+                        <td><?= $empresa->nombre ?></td>
+                        <td><?= $empresa->direccion ?></td>
+                        <td><?= $empresa->telefono ?></td>
+                        <td><?= $empresa->correo ?></td>
+                        <td><?= $empresa->ruc ?></td>
+                        <td><?= $empresa->estado ?></td>
 
                         <td>
-                          <a href="#" data-toggle="modal" data-target="#editModal" data-id="<?= $usuario->idUsuario ?>"><i class="fas fa-edit"></i></a>
-                          <a href="#" class="borrarUsuario" data-id="<?= $usuario->idUsuario ?>"><i class="fas fa-trash-alt"></i></a>
+                          <a href="#" data-toggle="modal" data-target="#editModal" data-id="<?= $empresa->idEmpresa ?>"><i class="fas fa-edit"></i></a>
+                          <a href="#" class="borrarUsuario" data-id="<?= $empresa->idEmpresa ?>"><i class="fas fa-trash-alt"></i></a>
                         </td>
                       </tr>
                     <?php } ?>
@@ -212,7 +205,7 @@ if ($response2 === false) {
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Editar el Usuario</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Editar Empresa</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -222,51 +215,37 @@ if ($response2 === false) {
             <div class="form-group">
 
               <label for="">ID</label>
-              <input type="text" disabled class="form-control form-control-user" id="editUsuarioId">
+              <input type="text" disabled class="form-control form-control-user" id="editEmpresaId">
             </div>
             <div class="row">
               <div class="form-group col-sm-6">
-                <label for="crearUsuarioName">Nombre</label>
-                <input type="text" class="form-control form-control-user" id="crearUsuarioName">
+                <label for="crearEmpresaNombre1">Nombre</label>
+                <input type="text" class="form-control form-control-user" id="crearEmpresaNombre1">
               </div>
               <div class="form-group col-sm-6">
-                <label for="crearUsuarioapellido">Apellido</label>
-                <input type="text" class="form-control form-control-user" id="crearUsuarioapellido">
+                <label for="crearEmpresaDireccion1">Direccion</label>
+                <input type="text" class="form-control form-control-user" id="crearEmpresaDireccion1">
               </div>
             </div>
 
             <div class="row">
               <div class="form-group col-sm-6">
-                <label for="crearUsuariocorreo">Correo</label>
-                <input type="email" class="form-control form-control-user" id="crearUsuariocorreo">
+                <label for="crearEmpresaTelefono1">Telefono</label>
+                <input type="text" class="form-control form-control-user" id="crearEmpresaTelefono1">
               </div>
               <div class="form-group col-sm-6">
-                <label for="crearUsuariocelular">Celular</label>
-                <input type="number" class="form-control form-control-user" id="crearUsuariocelular">
+                <label for="crearEmpresaCorreo1">Correo</label>
+                <input type="text" class="form-control form-control-user" id="crearEmpresaCorreo1">
               </div>
-
             </div>
-            <div class="form-group">
-              <label for="crearUsuariodireccion">Dirreción</label>
-              <input type="text" class="form-control form-control-user" id="crearUsuariodireccion">
-            </div>
-
-            <div class="form-group">
-              <label for="crearUsuarioDNI">DNI</label>
-              <input type="text" class="form-control form-control-user" id="crearUsuarioDNI">
-            </div>
-            <div class="row">
+            <div class="row ">
               <div class="form-group col-sm-6">
-                <label for="crearRol">Rol</label>
-                <select name="select" id="crearRol" class="form-control">
-                  <?php foreach ($decodedResponse2 as $rol) { ?>
-                    <option value="<?= $rol->idperfil ?>"><?= $rol->nombres ?></option>
-                  <?php } ?>
-                </select>
+                <label for="crearEmpresaRuc1">Ruc</label>
+                <input type="text" class="form-control form-control-user" id="crearEmpresaRuc1">
               </div>
               <div class="form-group col-sm-6">
                 <label for="">Estado</label>
-                <select name="select" id="crearselect" class="form-control">
+                <select name="select" id="crearselect1" class="form-control">
                   <option value="Activo">Activo</option>
                   <option value="Inactivo">Inactivo</option>
                 </select>
@@ -289,7 +268,7 @@ if ($response2 === false) {
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Crear el Usuario</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Crear Empresa</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -298,47 +277,33 @@ if ($response2 === false) {
           <form class="user">
             <div class="row">
               <div class="form-group col-sm-6">
-                <label for="crearUsuarioName1">Nombre</label>
-                <input type="text" class="form-control form-control-user" id="crearUsuarioName1">
+                <label for="crearEmpresaNombre">Nombre</label>
+                <input type="text" class="form-control form-control-user" id="crearEmpresaNombre">
               </div>
               <div class="form-group col-sm-6">
-                <label for="crearUsuarioapellido1">Apellido</label>
-                <input type="text" class="form-control form-control-user" id="crearUsuarioapellido1">
+                <label for="crearEmpresaDireccion">Direccion</label>
+                <input type="text" class="form-control form-control-user" id="crearEmpresaDireccion">
               </div>
             </div>
 
             <div class="row">
               <div class="form-group col-sm-6">
-                <label for="crearUsuariocorreo1">Correo</label>
-                <input type="email" class="form-control form-control-user" id="crearUsuariocorreo1">
+                <label for="crearEmpresaTelefono">Telefono</label>
+                <input type="text" class="form-control form-control-user" id="crearEmpresaTelefono">
               </div>
               <div class="form-group col-sm-6">
-                <label for="crearUsuariocelular1">Celular</label>
-                <input type="number" class="form-control form-control-user" id="crearUsuariocelular1">
+                <label for="crearEmpresaCorreo">Correo</label>
+                <input type="text" class="form-control form-control-user" id="crearEmpresaCorreo">
               </div>
-
             </div>
-            <div class="form-group">
-              <label for="crearUsuariodireccion1">Dirreción</label>
-              <input type="text" class="form-control form-control-user" id="crearUsuariodireccion1">
-            </div>
-
-            <div class="form-group">
-              <label for="crearUsuarioDNI1">DNI</label>
-              <input type="text" class="form-control form-control-user" id="crearUsuarioDNI1">
-            </div>
-            <div class="row">
+            <div class="row ">
               <div class="form-group col-sm-6">
-                <label for="crearRol">Rol</label>
-                <select name="select" id="crearRol1" class="form-control">
-                  <?php foreach ($decodedResponse2 as $rol) { ?>
-                    <option value="<?= $rol->idperfil ?>"><?= $rol->nombres ?></option>
-                  <?php } ?>
-                </select>
+                <label for="crearEmpresaRuc">Ruc</label>
+                <input type="text" class="form-control form-control-user" id="crearEmpresaRuc">
               </div>
               <div class="form-group col-sm-6">
                 <label for="">Estado</label>
-                <select name="select" id="crearselect1" class="form-control">
+                <select name="select" id="crearselect" class="form-control">
                   <option value="Activo">Activo</option>
                   <option value="Inactivo">Inactivo</option>
                 </select>
@@ -381,7 +346,7 @@ if ($response2 === false) {
         var usuarioId = button.data('id');
 
         // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
-        var apiUrl = 'http://localhost:75/admin/usuario/' + usuarioId;
+        var apiUrl = 'http://localhost:75/admin/empresa/' + usuarioId;
 
         var requestOptions = {
           method: 'GET',
@@ -391,15 +356,13 @@ if ($response2 === false) {
         fetch(apiUrl, requestOptions)
           .then(response => response.json())
           .then(result => {
-            $('#editUsuarioId').val(result.idUsuario);
-            $('#crearUsuarioName').val(result.nombre);
-            $('#crearUsuarioapellido').val(result.apellido);
-            $('#crearUsuariocorreo').val(result.correo);
-            $('#crearUsuariocelular').val(result.celular);
-            $('#crearUsuariodireccion').val(result.direccion);
-            $('#crearUsuarioDNI').val(result.dni);
-            $('#crearRol').val(result.perfil.idperfil);
-            $('#select').val(result.estado);
+            $('#editEmpresaId').val(result.idEmpresa);
+            $('#crearEmpresaNombre1').val(result.nombre);
+            $('#crearEmpresaDireccion1').val(result.direccion);
+            $('#crearEmpresaTelefono1').val(result.telefono);
+            $('#crearEmpresaCorreo1').val(result.correo);
+            $('#crearEmpresaRuc1').val(result.ruc);
+            $('#crearselect1').val(result.estado);
           })
           .catch(error => console.log('error', error));
       });
@@ -407,7 +370,7 @@ if ($response2 === false) {
     $('#guardarBtn').click(function() {
       Swal.fire({
         title: 'Estas seguro?',
-        text: "Actualizará el usuario",
+        text: "Actualizará Empresa",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -420,17 +383,13 @@ if ($response2 === false) {
           myHeaders.append("Content-Type", "application/json");
 
           let raw = JSON.stringify({
-            "idUsuario": $('#editUsuarioId').val(),
-            "nombre": $('#crearUsuarioName').val(),
-            "apellido": $('#crearUsuarioapellido').val(),
-            "correo": $('#crearUsuariocorreo').val(),
-            "celular": $('#crearUsuariocelular').val(),
-            "direccion": $('#crearUsuariodireccion').val(),
-            "dni": $('#crearUsuarioDNI').val(),
-            "perfil": {
-              "idperfil": $('#crearRol').val()
-            },
-            "estado": $('#crearselect').val()
+            "idEmpresa": $('#editEmpresaId').val(),
+            "nombre": $('#crearEmpresaNombre1').val(),
+            "direccion": $('#crearEmpresaDireccion1').val(),
+            "telefono": $('#crearEmpresaTelefono1').val(),
+            "correo": $('#crearEmpresaCorreo1').val(),
+            "ruc": $('#crearEmpresaRuc1').val(),
+            "estado": $('#crearselect1').val()
           });
           //console.log(raw)
           var requestOptions = {
@@ -440,12 +399,12 @@ if ($response2 === false) {
             redirect: 'follow'
           };
 
-          fetch("http://localhost:75/admin/usuario", requestOptions)
+          fetch("http://localhost:75/admin/empresa", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Usuario Actualizado',
+            title: 'Empresa Actualizado',
             showConfirmButton: false,
             timer: 1400
           })
@@ -464,7 +423,7 @@ if ($response2 === false) {
     $('#crearBtn').click(function() {
       Swal.fire({
         title: 'Estas seguro?',
-        text: "Actualizará el usuario",
+        text: "Actualizará Empresa",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -476,18 +435,12 @@ if ($response2 === false) {
           myHeaders.append("Content-Type", "application/json");
 
           let raw = JSON.stringify({
-
-            "nombre": $('#crearUsuarioName1').val(),
-            "apellido": $('#crearUsuarioapellido1').val(),
-            "correo": $('#crearUsuariocorreo1').val(),
-            "celular": $('#crearUsuariocelular1').val(),
-            "direccion": $('#crearUsuariodireccion1').val(),
-            "dni": $('#crearUsuarioDNI1').val(),
-            "perfil": {
-              "idperfil": $('#crearRol1').val()
-            },
-
-            "estado": $('#crearselect1').val()
+            "nombre": $('#crearEmpresaNombre').val(),
+            "direccion": $('#crearEmpresaDireccion').val(),
+            "telefono": $('#crearEmpresaTelefono').val(),
+            "correo": $('#crearEmpresaCorreo').val(),
+            "ruc": $('#crearEmpresaRuc').val(),
+            "estado": $('#crearselect').val()
           });
 
           var requestOptions = {
@@ -497,14 +450,12 @@ if ($response2 === false) {
             redirect: 'follow'
           };
 
-          console.log(raw);
-
-          fetch("http://localhost:75/admin/usuario", requestOptions)
+          fetch("http://localhost:75/admin/empresa", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Usuario Actualizado',
+            title: 'Empresa Actualizado',
             showConfirmButton: false,
             timer: 1400
           })
@@ -526,11 +477,11 @@ if ($response2 === false) {
       var usuarioId = $(this).data('id'); //reconocer el numero directo del id
 
       // Aquí realizas la solicitud para obtener los datos de los usuarios con el ID correspondiente
-      var apiUrl = 'http://localhost:75/admin/usuario/' + usuarioId;
+      var apiUrl = 'http://localhost:75/admin/empresa/' + usuarioId;
 
       Swal.fire({
         title: 'Estas seguro?',
-        text: "Se borrará el usuario",
+        text: "Se borrará Empresa",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -550,7 +501,7 @@ if ($response2 === false) {
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Usuario Borrado',
+            title: 'Empresa Borrado',
             showConfirmButton: false,
             timer: 1400
           })

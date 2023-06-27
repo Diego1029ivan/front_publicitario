@@ -132,7 +132,7 @@ if ($response === false) {
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Categorías</h1>
+          <h1 class="h3 mb-2 text-gray-800">Producto</h1>
           <p class="mb-4">Desarrollo de CRUD para categorías de productos</a>.</p>
 
           <!-- DataTales Example -->

@@ -2,7 +2,7 @@
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://localhost:75/admin/provincia', // Agregué "http://" para especificar el protocolo
+  CURLOPT_URL => 'http://localhost:75/admin/distrito', // Agregué "http://" para especificar el protocolo
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -14,7 +14,7 @@ curl_setopt_array($curl, array(
 $curl2 = curl_init();
 
 curl_setopt_array($curl2, array(
-  CURLOPT_URL => 'http://localhost:75/admin/departamento', // Agregué "http://" para especificar el protocolo
+  CURLOPT_URL => 'http://localhost:75/admin/provincia', // Agregué "http://" para especificar el protocolo
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -95,7 +95,7 @@ if ($response2 === false) {
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Provincia</h1>
+          <h1 class="h3 mb-2 text-gray-800">Distrito</h1>
           <p class="mb-4">Desarrollo de CRUD para Provincia</a>.</p>
 
           <!-- DataTales Example -->
@@ -110,6 +110,7 @@ if ($response2 === false) {
                   <thead>
                     <tr>
                       <th>ID</th>
+                      <th>Distrito</th>
                       <th>Provincia</th>
                       <th>Departamento</th>
                       <th>Estado</th>
@@ -121,6 +122,7 @@ if ($response2 === false) {
                   <tfoot>
                     <tr>
                       <th>ID</th>
+                      <th>Distrito</th>
                       <th>Provincia</th>
                       <th>Departamento</th>
                       <th>Estado</th>
@@ -129,16 +131,17 @@ if ($response2 === false) {
                     </tr>
                   </tfoot>
                   <tbody>
-                    <?php foreach ($decodedResponse as $provincia) { ?>
+                    <?php foreach ($decodedResponse as $distrito) { ?>
                       <tr>
-                        <td><?= $provincia->idProvincia ?></td>
-                        <td><?= $provincia->nombre ?></td>
-                        <td><?= $provincia->departamento->nombre ?></td>
-                        <td><?= $provincia->estado ?></td>
+                        <td><?= $distrito->idDistrito ?></td>
+                        <td><?= $distrito->nombre ?></td>
+                        <td><?= $distrito->provincia->nombre ?></td>
+                        <td><?= $distrito->provincia->departamento->nombre ?></td>
+                        <td><?= $distrito->estado ?></td>
 
                         <td>
-                          <a href="#" data-toggle="modal" data-target="#editModal" data-id="<?= $provincia->idProvincia ?>"><i class="fas fa-edit"></i></a>
-                          <a href="#" class="borrarCategoria" data-id="<?= $provincia->idProvincia ?>"><i class="fas fa-trash-alt"></i></a>
+                          <a href="#" data-toggle="modal" data-target="#editModal" data-id="<?= $distrito->idDistrito ?>"><i class="fas fa-edit"></i></a>
+                          <a href="#" class="borrarCategoria" data-id="<?= $distrito->idDistrito ?>"><i class="fas fa-trash-alt"></i></a>
                         </td>
 
 
@@ -198,7 +201,7 @@ if ($response2 === false) {
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Editar El Provincia</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Editar El Distrito</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -211,15 +214,15 @@ if ($response2 === false) {
               <input type="text" disabled class="form-control form-control-user" id="editCategoryId">
             </div>
             <div class="form-group">
-              <label for="">Departamento</label>
+              <label for="">Distrito</label>
               <input type="text" class="form-control form-control-user" id="editCategoryName">
 
             </div>
             <div class="form-group">
-              <label for="editDepartamento">Departamento</label>
-              <select name="select" id="editDepartamento" class="form-control">
-                <?php foreach ($decodedResponse2 as $departamento) { ?>
-                  <option value="<?= $departamento->idDepartamento ?>"><?= $departamento->nombre ?></option>
+              <label for="editProvincia">Provincia</label>
+              <select name="select" id="editProvincia" class="form-control">
+                <?php foreach ($decodedResponse2 as $provincia) { ?>
+                  <option value="<?= $provincia->idProvincia ?>"><?= $provincia->nombre ?></option>
                 <?php } ?>
               </select>
             </div>
@@ -249,7 +252,7 @@ if ($response2 === false) {
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Crear El Provincia</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Crear El Distrito</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -258,15 +261,15 @@ if ($response2 === false) {
           <form class="user">
 
             <div class="form-group">
-              <label for="">Provincia</label>
+              <label for="">Distrito</label>
               <input type="text" class="form-control form-control-user" id="crearCategoryName">
 
             </div>
             <div class="form-group">
-              <label for="crearDepartamento">Departamento</label>
-              <select name="select" id="crearDepartamento" class="form-control">
-                <?php foreach ($decodedResponse2 as $departamento) { ?>
-                  <option value="<?= $departamento->idDepartamento ?>"><?= $departamento->nombre ?></option>
+              <label for="crearProvincia">Provincia</label>
+              <select name="select" id="crearProvincia" class="form-control">
+                <?php foreach ($decodedResponse2 as $provincia) { ?>
+                  <option value="<?= $provincia->idProvincia ?>"><?= $provincia->nombre ?></option>
                 <?php } ?>
               </select>
             </div>
@@ -313,7 +316,7 @@ if ($response2 === false) {
         var provinciaId = button.data('id');
 
         // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
-        var apiUrl = 'http://localhost:75/admin/provincia/' + provinciaId;
+        var apiUrl = 'http://localhost:75/admin/distrito/' + provinciaId;
 
         var requestOptions = {
           method: 'GET',
@@ -323,9 +326,9 @@ if ($response2 === false) {
         fetch(apiUrl, requestOptions)
           .then(response => response.json())
           .then(result => {
-            $('#editCategoryId').val(result.idProvincia);
+            $('#editCategoryId').val(result.idDistrito);
             $('#editCategoryName').val(result.nombre);
-            $('#editDepartamento').val(result.departamento.idDepartamento);
+            $('#editProvincia').val(result.provincia.idProvincia);
             $('#select').val(result.estado);
           })
           .catch(error => console.log('error', error));
@@ -347,14 +350,14 @@ if ($response2 === false) {
           myHeaders.append("Content-Type", "application/json");
 
           var raw = JSON.stringify({
-            "idProvincia": $('#editCategoryId').val(),
+            "idDistrito": $('#editCategoryId').val(),
             "nombre": $('#editCategoryName').val(),
-            "departamento": {
-              "idDepartamento": $('#editDepartamento').val()
+            "provincia": {
+              "idProvincia": $('#editProvincia').val()
             },
             "estado": $('#select').val()
           });
-          //console.log(raw)
+
           var requestOptions = {
             method: 'PUT',
             headers: myHeaders,
@@ -362,12 +365,12 @@ if ($response2 === false) {
             redirect: 'follow'
           };
 
-          fetch("http://localhost:75/admin/provincia", requestOptions)
+          fetch("http://localhost:75/admin/distrito", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Provincia Actualizada',
+            title: 'Distrito Actualizada',
             showConfirmButton: false,
             timer: 1400
           })
@@ -386,7 +389,7 @@ if ($response2 === false) {
     $('#crearBtn').click(function() {
       Swal.fire({
         title: 'Estas seguro?',
-        text: "Creará la Provincia",
+        text: "Creará la Distrito",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -401,8 +404,8 @@ if ($response2 === false) {
           var raw = JSON.stringify({
 
             "nombre": $('#crearCategoryName').val(),
-            "departamento": {
-              "idDepartamento": $('#crearDepartamento').val()
+            "provincia": {
+              "idProvincia": $('#crearProvincia').val()
             },
             "estado": $('#crearselect').val()
           });
@@ -414,12 +417,12 @@ if ($response2 === false) {
             redirect: 'follow'
           };
 
-          fetch("http://localhost:75/admin/provincia", requestOptions)
+          fetch("http://localhost:75/admin/distrito", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Provincia Actualizada',
+            title: 'Distrito Actualizada',
             showConfirmButton: false,
             timer: 1400
           })
@@ -441,11 +444,11 @@ if ($response2 === false) {
       var departamentoId = $(this).data('id'); //reconocer el numero directo del id
 
       // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
-      var apiUrl = 'http://localhost:75/admin/provincia/' + departamentoId;
+      var apiUrl = 'http://localhost:75/admin/distrito/' + departamentoId;
       //console.log(apiUrl,categoryId)
       Swal.fire({
         title: 'Estas seguro?',
-        text: "Se borrará el departamento",
+        text: "Se borrará el distrito",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -465,7 +468,7 @@ if ($response2 === false) {
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Provincia Borrada',
+            title: 'Distrito Borrada',
             showConfirmButton: false,
             timer: 1400
           })
