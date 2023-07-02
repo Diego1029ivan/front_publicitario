@@ -52,7 +52,7 @@ document.getElementById("controlsuario").addEventListener("submit", (event) => {
         localStorage.setItem("usuario", JSON.stringify(data.usuario));
 
         if (data.usuario.perfil.nombres === "ROLE_USER") {
-          console.log("usuario");
+          window.location.href = "../cliente/index.php";
         } else if (data.usuario.perfil.nombres === "ROLE_ADMIN") {
           window.location.href = "../index.php";
         } else if (data.usuario.perfil.nombres === "ROLE_SUPADMIN") {
