@@ -2,7 +2,7 @@
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://pub.spring.informaticapp.com:9000/admin/usuario', // Agregué "http://" para especificar el protocolo
+  CURLOPT_URL => 'http://localhost:75/admin/usuario', // Agregué "http://" para especificar el protocolo
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -17,7 +17,7 @@ $response = curl_exec($curl);
 $curl2 = curl_init();
 
 curl_setopt_array($curl2, array(
-  CURLOPT_URL => 'http://pub.spring.informaticapp.com:9000/admin/perfil', // Agregué "http://" para especificar el protocolo
+  CURLOPT_URL => 'http://localhost:75/admin/perfil', // Agregué "http://" para especificar el protocolo
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -366,7 +366,7 @@ if ($response2 === false) {
         var usuarioId = button.data('id');
 
         // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
-        var apiUrl = 'http://pub.spring.informaticapp.com:9000/admin/usuario/' + usuarioId;
+        var apiUrl = 'http://localhost:75/admin/usuario/' + usuarioId;
 
         var requestOptions = {
           method: 'GET',
@@ -425,7 +425,7 @@ if ($response2 === false) {
             redirect: 'follow'
           };
 
-          fetch("http://pub.spring.informaticapp.com:9000/admin/usuario", requestOptions)
+          fetch("http://localhost:75/admin/usuario", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',
@@ -484,7 +484,7 @@ if ($response2 === false) {
 
           console.log(raw);
 
-          fetch("http://pub.spring.informaticapp.com:9000/admin/usuario", requestOptions)
+          fetch("http://localhost:75/admin/usuario", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',
@@ -511,7 +511,7 @@ if ($response2 === false) {
       var usuarioId = $(this).data('id'); //reconocer el numero directo del id
 
       // Aquí realizas la solicitud para obtener los datos de los usuarios con el ID correspondiente
-      var apiUrl = 'http://pub.spring.informaticapp.com:9000/admin/usuario/' + usuarioId;
+      var apiUrl = 'http://localhost:75/admin/usuario/' + usuarioId;
 
       Swal.fire({
         title: 'Estas seguro?',
