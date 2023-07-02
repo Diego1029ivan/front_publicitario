@@ -239,12 +239,12 @@
 
     /*==================================================================
     [ +/- num product ]*/
-    $('.btn-num-product-down').on('click', function(){
+    $(document).on('click', '.btn-num-product-down', function() {
         var numProduct = Number($(this).next().val());
-        if(numProduct > 0) $(this).next().val(numProduct - 1);
+        if (numProduct > 0) $(this).next().val(numProduct - 1);
     });
 
-    $('.btn-num-product-up').on('click', function(){
+    $(document).on('click', '.btn-num-product-up', function() {
         var numProduct = Number($(this).prev().val());
         $(this).prev().val(numProduct + 1);
     });
@@ -308,6 +308,8 @@
 		$(document).on('click', '.js-addcart-detail', function() {
             let nameProduct = $('#detalleNombre').text();
             let idProd = $('#idProd').val();
+            let cantProd = $('.num-product').val();
+            let precioProduct = $('#precioProd').text();
             let productList = JSON.parse(sessionStorage.getItem('productList')) || [];
             // Verificar si el producto ya existe en la lista
             let isProductExists = productList.some(product => product.id === idProd);
@@ -329,7 +331,7 @@
                     ${nameProduct}
                   </a>
                   <span class="header-cart-item-info">
-                    1 x $19.00
+                  ${cantProd} x S/. ${precioProduct}
                   </span>
                 </div>
               </li>
@@ -339,13 +341,13 @@
           
             // Obtener la lista de productos actualizada
             //let productList = JSON.parse(sessionStorage.getItem('productList')) || [];
-            productList.push({ id: idProd, name: nameProduct });
+            productList.push({ id: idProd, name: nameProduct,price: parseFloat(precioProduct), quantity: parseInt(cantProd) });
           
             // Guardar la lista de productos en el sessionStorage
             sessionStorage.setItem('productList', JSON.stringify(productList));
           
             updateNotificationCount();
-          
+            updateTotalPrice();
             swal(nameProduct, "fue agregado al carrito!", "success");
           });
 
@@ -363,6 +365,7 @@
             $productItem.remove();
           
             updateNotificationCount();
+            updateTotalPrice();
           });
 	
         
@@ -379,5 +382,12 @@
             //var itemCount = $('.header-cart-wrapitem ul.header-cart-wrapitem').children('li').length;
             $('.js-show-cart').attr('data-notify', itemCount);
             //console.log("conteo",itemCount)
+          };
+
+          function updateTotalPrice() {
+            let productList = JSON.parse(sessionStorage.getItem('productList')) || [];
+            let totalPrice = productList.reduce((total, product) => total + product.price * product.quantity, 0);
+            
+            $('.header-cart-total').text('Total: $' + totalPrice.toFixed(2));
           }
 })(jQuery);
