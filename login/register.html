@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#06aa5e" />
+    <meta name="msapplication-navbutton-color" content="#06aa5e" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <title>Registro Sesión</title>
+    <link
+      rel="shortcut icon"
+      href="./assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="./assets/css/stylesR.css" />
+    <script src="./assets/js/script.js" defer></script>
+  </head>
+  <body>
+    <main class="card-container slideUp-animation">
+      <div class="image-container">
+        <h1 class="company">Publicitario <sup>&trade;</sup></h1>
+        <img src="./assets/img/login-bg.png" class="illustration" alt="ff" />
+        <p class="quote">Regístrese hoy para obtener ofertas emocionantes!</p>
+        <a href="#btm" class="mobile-btm-nav">
+          <img src="./assets/img/login-bg.png" alt="ffd" />
+        </a>
+      </div>
+      <form action="" method="">
+        <div class="form-container slideRight-animation">
+          <h1 class="form-header">Registrate</h1>
+
+          <div class="input-container">
+            <label for="f-name"></label>
+            <input type="text" name="f-name" id="f-name" required />
+            <span> Nombre </span>
+            <div class="error"></div>
+          </div>
+
+          <div class="input-container">
+            <label for="l-apellido"></label>
+            <input type="text" name="l-apellido" id="l-apellido" required />
+            <span> Apellido </span>
+            <div class="error"></div>
+          </div>
+
+          <div class="input-container">
+            <label for="mail"> </label>
+            <input type="email" name="mail" id="mail" required />
+            <span>Correo</span>
+            <div class="error"></div>
+          </div>
+
+          <div class="input-container">
+            <label for="phone"> </label>
+            <input type="tel" name="phone" id="phone" required />
+            <span>Celular</span>
+            <div class="error"></div>
+          </div>
+
+          <div class="input-container">
+            <label for="user-password"></label>
+            <input
+              type="password"
+              name="user-password"
+              id="user-password"
+              class="user-password"
+              required
+            />
+            <span>Password</span>
+            <div class="error"></div>
+          </div>
+
+          <div class="input-container">
+            <label for="user-password-confirm"></label>
+            <input
+              type="password"
+              name="user-password-confirm"
+              id="user-password-confirm"
+              class="password-confirmation"
+              required
+            />
+            <span> Confirm Password </span>
+            <div class="error"></div>
+          </div>
+          <div class="input-container">
+            <label for="f-direccion"></label>
+            <input type="text" name="f-direccion" id="f-direccion" required />
+            <span> Direccion </span>
+            <div class="error"></div>
+          </div>
+          <div class="input-container">
+            <label for="f-dni"></label>
+            <input type="number" name="f-dni" id="f-dni" required min="0" />
+            <span> DNI</span>
+            <div class="error"></div>
+          </div>
+
+          <div id="btm">
+            <button type="submit" class="submit-btn">Crear Cuenta</button>
+            <p class="btm-text">
+              ¿Ya tienes una cuenta..?
+              <span class="btm-text-highlighted">
+                <a href="index.html"> INICIA SESIÓN</a></span
+              >
+            </p>
+          </div>
+        </div>
+      </form>
+    </main>
+    <section class="outro-overlay disabled slideUp-animation">
+      <h1 class="company">Basket <sup>&trade;</sup></h1>
+      <h1 class="outro-greeting">Thank's for signing up..!</h1>
+      <img src="./assets/images/shape.svg" alt="" class="shape" />
+      <img
+        src="./assets/images/signedUp.svg"
+        alt=""
+        id="signedUp-illustration"
+        class="slideRight-animation"
+      />
+      <div class="author-link">
+        &copy;&nbsp;
+        <a href="https://www.0xabdulkhalid.ml/">0xabdulkhalid</a> |
+        <a href="https://www.github.com/0xabdulkhalid/basket-sign-up-form/"
+          >Source Code</a
+        >
+      </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </body>
+</html>
