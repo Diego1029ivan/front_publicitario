@@ -2,7 +2,7 @@
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://localhost:75/admin/provincia', // Agregué "http://" para especificar el protocolo
+  CURLOPT_URL => 'http://pub.spring.informaticapp.com:9000/admin/provincia', // Agregué "http://" para especificar el protocolo
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -11,10 +11,23 @@ curl_setopt_array($curl, array(
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => 'GET',
 ));
+$curl2 = curl_init();
 
+curl_setopt_array($curl2, array(
+  CURLOPT_URL => 'http://pub.spring.informaticapp.com:9000/admin/departamento', // Agregué "http://" para especificar el protocolo
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+));
 $response = curl_exec($curl);
+$response2 = curl_exec($curl2);
 
 curl_close($curl);
+curl_close($curl2);
 
 if ($response === false) {
   echo 'Error en la solicitud cURL: ' . curl_error($curl);
@@ -22,6 +35,16 @@ if ($response === false) {
   $decodedResponse = json_decode($response);
 
   if ($decodedResponse === null) {
+    echo 'Error al decodificar la respuesta JSON.';
+  }
+}
+
+if ($response2 === false) {
+  echo 'Error en la solicitud cURL: ' . curl_error($curl2);
+} else {
+  $decodedResponse2 = json_decode($response2);
+
+  if ($decodedResponse2 === null) {
     echo 'Error al decodificar la respuesta JSON.';
   }
 }
@@ -152,30 +175,14 @@ if ($response === false) {
   </a>
 
   <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.php">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  <?php include('componentes/modalSession.php'); ?>
 
   <!-- Edit Modal-->
   <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Editar El departamento</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Editar El Provincia</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -191,6 +198,14 @@ if ($response === false) {
               <label for="">Departamento</label>
               <input type="text" class="form-control form-control-user" id="editCategoryName">
 
+            </div>
+            <div class="form-group">
+              <label for="editDepartamento">Departamento</label>
+              <select name="select" id="editDepartamento" class="form-control">
+                <?php foreach ($decodedResponse2 as $departamento) { ?>
+                  <option value="<?= $departamento->idDepartamento ?>"><?= $departamento->nombre ?></option>
+                <?php } ?>
+              </select>
             </div>
             <div class="form-group">
               <label for="">Estado</label>
@@ -218,7 +233,7 @@ if ($response === false) {
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Crear El departamento</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Crear El Provincia</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -227,9 +242,17 @@ if ($response === false) {
           <form class="user">
 
             <div class="form-group">
-              <label for="">Departamento</label>
+              <label for="">Provincia</label>
               <input type="text" class="form-control form-control-user" id="crearCategoryName">
 
+            </div>
+            <div class="form-group">
+              <label for="crearDepartamento">Departamento</label>
+              <select name="select" id="crearDepartamento" class="form-control">
+                <?php foreach ($decodedResponse2 as $departamento) { ?>
+                  <option value="<?= $departamento->idDepartamento ?>"><?= $departamento->nombre ?></option>
+                <?php } ?>
+              </select>
             </div>
             <div class="form-group">
               <label for="">Estado</label>
@@ -267,6 +290,7 @@ if ($response === false) {
 
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
+  <script src="js/exit.js"></script>
   <script>
     $(document).ready(function() {
       $('#editModal').on('show.bs.modal', function(event) {
@@ -274,7 +298,7 @@ if ($response === false) {
         var provinciaId = button.data('id');
 
         // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
-        var apiUrl = 'http://localhost:75/admin/provincia/' + provinciaId;
+        var apiUrl = 'http://pub.spring.informaticapp.com:9000/admin/provincia/' + provinciaId;
 
         var requestOptions = {
           method: 'GET',
@@ -286,6 +310,7 @@ if ($response === false) {
           .then(result => {
             $('#editCategoryId').val(result.idProvincia);
             $('#editCategoryName').val(result.nombre);
+            $('#editDepartamento').val(result.departamento.idDepartamento);
             $('#select').val(result.estado);
           })
           .catch(error => console.log('error', error));
@@ -309,6 +334,9 @@ if ($response === false) {
           var raw = JSON.stringify({
             "idProvincia": $('#editCategoryId').val(),
             "nombre": $('#editCategoryName').val(),
+            "departamento": {
+              "idDepartamento": $('#editDepartamento').val()
+            },
             "estado": $('#select').val()
           });
           //console.log(raw)
@@ -319,7 +347,7 @@ if ($response === false) {
             redirect: 'follow'
           };
 
-          fetch("http://localhost:75/admin/provincia", requestOptions)
+          fetch("http://pub.spring.informaticapp.com:9000/admin/provincia", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',
@@ -358,6 +386,9 @@ if ($response === false) {
           var raw = JSON.stringify({
 
             "nombre": $('#crearCategoryName').val(),
+            "departamento": {
+              "idDepartamento": $('#crearDepartamento').val()
+            },
             "estado": $('#crearselect').val()
           });
           //console.log(raw)
@@ -368,7 +399,7 @@ if ($response === false) {
             redirect: 'follow'
           };
 
-          fetch("http://localhost:75/admin/provincia", requestOptions)
+          fetch("http://pub.spring.informaticapp.com:9000/admin/provincia", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',
@@ -395,7 +426,7 @@ if ($response === false) {
       var departamentoId = $(this).data('id'); //reconocer el numero directo del id
 
       // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
-      var apiUrl = 'http://localhost:75/admin/provincia/' + departamentoId;
+      var apiUrl = 'http://pub.spring.informaticapp.com:9000/admin/provincia/' + departamentoId;
       //console.log(apiUrl,categoryId)
       Swal.fire({
         title: 'Estas seguro?',
@@ -419,7 +450,7 @@ if ($response === false) {
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Categoría Borrada',
+            title: 'Provincia Borrada',
             showConfirmButton: false,
             timer: 1400
           })

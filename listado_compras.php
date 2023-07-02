@@ -4,7 +4,7 @@
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://localhost:75/admin/compra', // Agregué "http://" para especificar el protocolo
+  CURLOPT_URL => 'http://pub.spring.informaticapp.com:9000/admin/compra', // Agregué "http://" para especificar el protocolo
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -82,7 +82,7 @@ if ($response === false) {
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
-            
+
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="categoriaTable" width="100%" cellspacing="0">
@@ -119,14 +119,14 @@ if ($response === false) {
                         <td><?= $compra->descripcion ?></td>
                         <td><?= $compra->total ?></td>
                         <td><?= $compra->fecha ?></td>
-                        <td><?= $compra->usuario->nombre." ".$compra->usuario->apellido ?></td>
+                        <td><?= $compra->usuario->nombre . " " . $compra->usuario->apellido ?></td>
                         <td><?= $compra->usuario->dni ?></td>
                         <td><?= $compra->estado ?></td>
 
 
                         <td>
                           <a href="#" data-toggle="modal" data-target="#editModal" data-id="<?= $compra->idCompra ?>"><i class="fas fa-edit"></i></a>
-                         
+
                         </td>
 
 
@@ -161,23 +161,7 @@ if ($response === false) {
   </a>
 
   <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.php">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  <?php include('componentes/modalSession.php'); ?>
 
   <!-- Edit Modal-->
   <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -191,7 +175,7 @@ if ($response === false) {
         </div>
         <div class="modal-body">
           <form class="user">
-            
+
             <div class="form-group row">
               <div class="col-sm-6 mb-3 mb-sm-0">
                 <label for="">Id</label>
@@ -203,14 +187,14 @@ if ($response === false) {
               </div>
               <div class="col-sm-6">
                 <label for="">Comprador</label>
-                <input type="text" disabled class="form-control form-control-user" id="editComC" >
+                <input type="text" disabled class="form-control form-control-user" id="editComC">
               </div>
             </div>
 
             <div class="form-group row">
               <div class="col-sm-6 mb-3 mb-sm-0">
                 <label for="">Estado</label>
-                <select name="select" id="editselect" class="form-control">
+                <select name="editselect" id="editselect" class="form-control">
                   <option value="Pendiente">Pendiente</option>
                   <option value="Pagado">Pagado</option>
                   <option value="Cancelado">Cancelado</option>
@@ -218,11 +202,9 @@ if ($response === false) {
               </div>
               <div class="col-sm-6">
                 <label for="">Costo de compra</label>
-                <input type="number" disabled class="form-control form-control-user"id="editComCosto">
+                <input type="number" disabled class="form-control form-control-user" id="editComCosto">
               </div>
             </div>
-
-
 
           </form>
         </div>
@@ -235,7 +217,7 @@ if ($response === false) {
     </div>
   </div>
 
- 
+
 
 
 
@@ -258,6 +240,7 @@ if ($response === false) {
 
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
+  <script src="js/exit.js"></script>
   <script>
     $(document).ready(function() {
       $('#editModal').on('show.bs.modal', function(event) {
@@ -265,7 +248,7 @@ if ($response === false) {
         let comId = button.data('id');
 
         // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
-        let apiUrl = 'http://localhost:75/admin/compra/' + comId;
+        let apiUrl = 'http://pub.spring.informaticapp.com:9000/admin/compra/' + comId;
 
         let requestOptions = {
           method: 'GET',
@@ -281,12 +264,12 @@ if ($response === false) {
             $('#editComIdUsuario').val(result.usuario.idUsuario);
             $('#editComDesc').val(result.descripcion);
             $('#editComFecha').val(result.fecha);
-            $('#editComC').val(result.usuario.nombre+" "+result.usuario.apellido);
+            $('#editComC').val(result.usuario.nombre + " " + result.usuario.apellido);
             $('#editselect').val(result.estado);
             $('#editComCosto').val(result.total);
             //console.log(result)
 
-            
+
           })
           .catch(error => console.log('error', error));
       });
@@ -308,21 +291,21 @@ if ($response === false) {
 
           let raw = JSON.stringify({
 
-            
-              "idCompra": $('#editComId').val(),
-              "descripcion": $('#editComDesc').val(),
-              "total": $('#editComCosto').val(),
-              "fecha": $('#editComFecha').val(),
-              "usuario": {
-                  "idUsuario": $('#editComIdUsuario').val()
-                  
-              },
-              "distrito": {
-                  "idDistrito": $('#editComIdDistrito').val(),
-              },
-              "estado": $('#editselect').val(),
-          
-          
+
+            "idCompra": $('#editComId').val(),
+            "descripcion": $('#editComDesc').val(),
+            "total": $('#editComCosto').val(),
+            "fecha": $('#editComFecha').val(),
+            "usuario": {
+              "idUsuario": $('#editComIdUsuario').val()
+
+            },
+            "distrito": {
+              "idDistrito": $('#editComIdDistrito').val(),
+            },
+            "estado": $('#editselect').val(),
+
+
           });
           //console.log(raw)
           let requestOptions = {
@@ -332,7 +315,7 @@ if ($response === false) {
             redirect: 'follow'
           };
 
-          fetch("http://localhost:75/admin/compra", requestOptions)
+          fetch("http://pub.spring.informaticapp.com:9000/admin/compra", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',
@@ -352,7 +335,6 @@ if ($response === false) {
       })
 
     });
-
   </script>
 </body>
 

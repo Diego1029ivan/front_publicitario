@@ -2,7 +2,7 @@
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://localhost:75/admin/marca', // Agregué "http://" para especificar el protocolo
+  CURLOPT_URL => 'http://pub.spring.informaticapp.com:9000/admin/marca', // Agregué "http://" para especificar el protocolo
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -148,23 +148,7 @@ if ($response === false) {
   </a>
 
   <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.php">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  <?php include('componentes/modalSession.php'); ?>
 
   <!-- Edit Modal-->
   <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -266,6 +250,7 @@ if ($response === false) {
 
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
+
   <script>
     $(document).ready(function() {
       $('#editModal').on('show.bs.modal', function(event) {
@@ -273,7 +258,7 @@ if ($response === false) {
         var marcaId = button.data('id');
 
         // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
-        var apiUrl = 'http://localhost:75/admin/marca/' + marcaId;
+        var apiUrl = 'http://pub.spring.informaticapp.com:9000/admin/marca/' + marcaId;
 
         var requestOptions = {
           method: 'GET',
@@ -318,7 +303,7 @@ if ($response === false) {
             redirect: 'follow'
           };
 
-          fetch("http://localhost:75/admin/marca", requestOptions)
+          fetch("http://pub.spring.informaticapp.com:9000/admin/marca", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',
@@ -367,7 +352,7 @@ if ($response === false) {
             redirect: 'follow'
           };
 
-          fetch("http://localhost:75/admin/marca", requestOptions)
+          fetch("http://pub.spring.informaticapp.com:9000/admin/marca", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',
@@ -394,7 +379,7 @@ if ($response === false) {
       var marcaId = $(this).data('id'); //reconocer el numero directo del id
 
       // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
-      var apiUrl = 'http://localhost:75/admin/marca/' + marcaId;
+      var apiUrl = 'http://pub.spring.informaticapp.com:9000/admin/marca/' + marcaId;
       console.log(apiUrl, marcaId)
       Swal.fire({
         title: 'Estas seguro?',

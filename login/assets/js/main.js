@@ -34,20 +34,63 @@ showHiddenPass("login-pass", "login-eye");
 
 document.getElementById("controlsuario").addEventListener("submit", (event) => {
   event.preventDefault();
-  console.log("teste");
-  const email = document.getElementById("email").value;
+  const username = document.getElementById("username").value;
   const passaword = document.getElementById("login-pass").value;
 
-  if (email === "" || passaword === "") {
-    alert("Preencha todos os campos");
-    return;
-  }
-  if (email === "admin@gmail.com" && passaword === "admin") {
-    window.location.href = "../index.php";
-    return;
-  }
-  if (email !== "admin" || passaword !== "admin") {
-    alert("Credenciais inválidas");
-    return;
-  }
+  login(username, passaword).then(
+    (data) => {
+      if (data.mensaje === "Usuario y/o contraseña incorrectos") {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Usuario y/o contraseña incorrectos",
+        });
+        return false;
+      }
+
+      if (data.mensaje === "Inicio de sesión exitoso") {
+        localStorage.setItem("usuario", JSON.stringify(data.usuario));
+
+        if (data.usuario.perfil.nombres === "ROLE_USER") {
+          console.log("usuario");
+        } else if (data.usuario.perfil.nombres === "ROLE_ADMIN") {
+          window.location.href = "../index.php";
+        } else if (data.usuario.perfil.nombres === "ROLE_SUPADMIN") {
+          window.location.href = "../index.php";
+        }
+
+        return false;
+        // window.location.href = "../index.php";
+      }
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Algo salio mal! Intentalo de nuevo",
+      });
+    },
+
+    (error) => {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Algo salio mal! Intentalo de nuevo",
+      });
+    }
+  );
 });
+
+//funcion login fetch api login usuario
+const login = async (username, password) => {
+  const response = await fetch("http://localhost:75/admin/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username: username,
+      contrasena: password,
+    }),
+  });
+  const data = await response.json();
+  return data;
+};
