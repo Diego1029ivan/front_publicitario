@@ -6,10 +6,11 @@
 			<div class="top-bar">
 				<div class="content-topbar flex-sb-m h-full container">
 					<div class="left-top-bar">
+
 						Envio gratis a nivel nacional
 					</div>
 
-					
+			
 				</div>
 			</div>
 
@@ -26,6 +27,7 @@
 						<ul class="main-menu">
 							<li>
 								<a href="index.php">Principal</a>
+
 								
 							</li>
 
@@ -47,6 +49,7 @@
 
 							<li>
 								<a href="contact.php">Contacto</a>
+
 							</li>
 						</ul>
 					</div>	
@@ -105,18 +108,18 @@
 			<ul class="topbar-mobile">
 				<li>
 					<div class="left-top-bar">
+
 						Evios gratis a nivel nacional
 					</div>
 				</li>
 
-				
+
 			</ul>
 
 			<ul class="main-menu-m">
 				<li>
 					<a href="index.php">Home</a>
-					
-					
+
 				</li>
 
 				<li>
@@ -184,11 +187,13 @@
 					</div>
 
 					<div class="header-cart-buttons flex-w w-full">
+
 						<a href="shoping-cart.php" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
 							View Cart
 						</a>
 
 						<a href="shoping-cart.php" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
+
 							Check Out
 						</a>
 					</div>

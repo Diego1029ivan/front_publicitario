@@ -308,6 +308,7 @@
 		$(document).on('click', '.js-addcart-detail', function() {
             let nameProduct = $('#detalleNombre').text();
             let idProd = $('#idProd').val();
+
             let cantProd = $('.num-product').val();
             let precioProduct = $('#precioProd').text();
             let productList = JSON.parse(sessionStorage.getItem('productList')) || [];
@@ -389,5 +390,6 @@
             let totalPrice = productList.reduce((total, product) => total + product.price * product.quantity, 0);
             
             $('.header-cart-total').text('Total: $' + totalPrice.toFixed(2));
+
           }
 })(jQuery);

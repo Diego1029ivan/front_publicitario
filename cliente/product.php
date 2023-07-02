@@ -369,6 +369,7 @@ if ($response === false) {
 		</div>
 	</div>
 		
+
 	<?php include('componentes/footer.php'); ?>
 
 	<!-- Back to top -->
@@ -443,6 +444,7 @@ if ($response === false) {
 							<p class="stext-102 cl3 p-t-23">
 								Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.
 							</p>
+
 							<p class="stext-102 cl3 p-t-23" >
 								precio: S/ <strong id="precioProd">19</strong>
 							</p>
