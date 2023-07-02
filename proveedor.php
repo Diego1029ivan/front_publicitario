@@ -2,7 +2,7 @@
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://pub.spring.informaticapp.com:9000/admin/proveedor', // Agregué "http://" para especificar el protocolo
+  CURLOPT_URL => 'http://localhost:75/admin/proveedor', // Agregué "http://" para especificar el protocolo
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -351,7 +351,7 @@ if ($response === false) {
         let provId = button.data('id');
 
         // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
-        let apiUrl = 'http://pub.spring.informaticapp.com:9000/admin/proveedor/' + provId;
+        let apiUrl = 'http://localhost:75/admin/proveedor/' + provId;
 
         let requestOptions = {
           method: 'GET',
@@ -408,7 +408,7 @@ if ($response === false) {
             redirect: 'follow'
           };
 
-          fetch("http://pub.spring.informaticapp.com:9000/admin/proveedor", requestOptions)
+          fetch("http://localhost:75/admin/proveedor", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',
@@ -464,7 +464,7 @@ if ($response === false) {
             redirect: 'follow'
           };
 
-          fetch("http://pub.spring.informaticapp.com:9000/admin/proveedor", requestOptions)
+          fetch("http://localhost:75/admin/proveedor", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',
@@ -491,7 +491,7 @@ if ($response === false) {
       var provId = $(this).data('id'); //reconocer el numero directo del id
 
       // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
-      var apiUrl = 'http://pub.spring.informaticapp.com:9000/admin/proveedor/' + provId;
+      var apiUrl = 'http://localhost:75/admin/proveedor/' + provId;
       //console.log(apiUrl,categoryId)
       Swal.fire({
         title: 'Estas seguro?',
