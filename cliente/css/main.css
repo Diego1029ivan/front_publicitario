@@ -993,9 +993,8 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 }
 
 .header-cart-item-img::after {
-  content: '\e870';
-  font-family: Linearicons-Free;
-  font-size: 16px;
+  content: '';
+  
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -1015,11 +1014,11 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   -o-transition: all 0.3s;
   -moz-transition: all 0.3s;
   opacity: 0;
-}
+} 
 
-.header-cart-item-img:hover:after {
+ .header-cart-item-img:hover:after {
   opacity: 1;
-}
+} 
 
 /*---------------------------------------------*/
 .header-cart-item-txt {
@@ -2058,7 +2057,29 @@ input.num-product::-webkit-inner-spin-button {
 .block2-pic:hover .block2-btn {
   bottom: 20px;
 }
+/*//////////////////////////////////////////////////////////////////
+[ Block2 ]*/
+.block3-pic {
+  position: relative;
+}
 
+.block3-btn {
+  position: absolute;
+  bottom: -50px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  transform: translateX(-50%);
+  border-radius: 50%;
+}
+
+.block3-pic:hover .block3-btn {
+  bottom: 20px;
+  z-index: 100;
+  opacity: 1;
+}
 /*---------------------------------------------*/
 .block2-txt-child1 {
   width: calc(100% - 30px);
@@ -3084,6 +3105,16 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .hov-btn1:hover i {
+  color: #fff;
+}
+/*---------------------------------------------*/
+.hov-btn4:hover {
+  border-color: #e01010;
+  background-color: #e01010;
+  color: #fff;
+}
+
+.hov-btn4:hover i {
   color: #fff;
 }
 

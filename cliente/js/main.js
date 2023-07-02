@@ -1,7 +1,32 @@
 
 (function ($) {
     "use strict";
+    // Obtener la lista de productos del sessionStorage
+    let productList = JSON.parse(sessionStorage.getItem('productList')) || [];
 
+    // Recorrer la lista de productos y agregar los elementos li al carrito
+    productList.forEach(function(productName) {
+        let cartItem = `
+        <li class="header-cart-item flex-w flex-t m-b-12">
+            <div class="header-cart-item-img block3-pic hov-img0">
+            <img src="images/item-cart-01.jpg" alt="IMG">
+                <a href="#" class="block3-btn flex-c-m stext-103 cl2  bg0 bor2 hov-btn4 p-lr-15 trans-04 js-borrar-prod">
+                        x
+                </a>
+            </div>
+            <div class="header-cart-item-txt p-t-8">
+            <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+                ${productName}
+            </a>
+            <span class="header-cart-item-info">
+                1 x $19.00
+            </span>
+            </div>
+        </li>
+        `;
+        $('.header-cart-wrapitem').append(cartItem);
+    });
+    updateNotificationCount();
     /*[ Load page ]
     ===========================================================*/
     $(".animsition").animsition({
@@ -278,5 +303,81 @@
     });
 
 
+    	/*---------------------------------------------*/
 
+		$(document).on('click', '.js-addcart-detail', function() {
+            let nameProduct = $('#detalleNombre').text();
+            let idProd = $('#idProd').val();
+            let productList = JSON.parse(sessionStorage.getItem('productList')) || [];
+            // Verificar si el producto ya existe en la lista
+            let isProductExists = productList.some(product => product.id === idProd);
+
+            if (isProductExists) {
+                swal(nameProduct, "ya está en el carrito!", "error");
+                return;
+            }
+            let cartItem = `
+              <li class="header-cart-item flex-w flex-t m-b-12" data-product-id="${idProd}">
+                <div class="header-cart-item-img block3-pic hov-img0">
+                  <img src="images/item-cart-01.jpg" alt="IMG">
+                  <a href="#" class="block3-btn flex-c-m stext-103 cl2  bg0 bor2 hov-btn4 p-lr-15 trans-04 js-borrar-prod">
+                    x
+                  </a>
+                </div>
+                <div class="header-cart-item-txt p-t-8">
+                  <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+                    ${nameProduct}
+                  </a>
+                  <span class="header-cart-item-info">
+                    1 x $19.00
+                  </span>
+                </div>
+              </li>
+            `;
+          
+            $('.header-cart-wrapitem').append(cartItem);
+          
+            // Obtener la lista de productos actualizada
+            //let productList = JSON.parse(sessionStorage.getItem('productList')) || [];
+            productList.push({ id: idProd, name: nameProduct });
+          
+            // Guardar la lista de productos en el sessionStorage
+            sessionStorage.setItem('productList', JSON.stringify(productList));
+          
+            updateNotificationCount();
+          
+            swal(nameProduct, "fue agregado al carrito!", "success");
+          });
+
+        /**BORRAR */
+        $(document).on('click', '.js-borrar-prod', function() {
+            let $productItem = $(this).closest('li.header-cart-item');
+            let productId = $productItem.attr('data-product-id');
+          
+            // Eliminar el producto de la lista en el sessionStorage
+            let productList = JSON.parse(sessionStorage.getItem('productList')) || [];
+            productList = productList.filter(product => product.id !== productId);
+            sessionStorage.setItem('productList', JSON.stringify(productList));
+          
+            // Remover el elemento de la lista visualmente
+            $productItem.remove();
+          
+            updateNotificationCount();
+          });
+	
+        
+        function updateNotificationCount() {
+            let productList = JSON.parse(sessionStorage.getItem('productList')) || [];
+            
+            let itemCount = productList.length;
+            console.log(itemCount)
+            // $(".header-cart-wrapitem li").each(function(){
+        	//     itemCount++
+                
+        	// });
+
+            //var itemCount = $('.header-cart-wrapitem ul.header-cart-wrapitem').children('li').length;
+            $('.js-show-cart').attr('data-notify', itemCount);
+            //console.log("conteo",itemCount)
+          }
 })(jQuery);
