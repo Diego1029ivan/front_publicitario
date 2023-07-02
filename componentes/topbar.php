@@ -155,7 +155,10 @@
     <!-- Nav Item - User Information -->
     <li class="nav-item dropdown no-arrow">
       <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="mr-2 d-none d-lg-inline text-gray-600 small">Nombre de usuario</span>
+
+        <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="nombreUsuario"></span>
+
+
         <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
       </a>
       <!-- Dropdown - User Information -->
@@ -180,4 +183,11 @@
   </ul>
 
 </nav>
+<script>
+  //obtener de la session el nombre del usuario
+  let nombre = JSON.parse(localStorage.getItem("usuario"));
+  let nombreUsuario = document.getElementById('nombreUsuario');
+  nombreUsuario.innerHTML = nombre.nombre + "(" + nombre.perfil.nombres + ")";
+</script>
+
 <!-- End of Topbar -->

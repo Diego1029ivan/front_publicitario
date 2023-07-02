@@ -248,7 +248,7 @@ if ($response === false) {
 
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
-  <script src="js/exit.js"></script>
+
   <script>
     $(document).ready(function() {
       $('#editModal').on('show.bs.modal', function(event) {

@@ -260,7 +260,7 @@ if ($response2 === false) {
 
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
-  <script src="js/exit.js"></script>
+
   <script>
     let tipoVenta = "";
     let iddistroto = 0;
