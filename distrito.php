@@ -137,7 +137,13 @@ if ($response2 === false) {
                         <td><?= $distrito->nombre ?></td>
                         <td><?= $distrito->provincia->nombre ?></td>
                         <td><?= $distrito->provincia->departamento->nombre ?></td>
-                        <td><?= $distrito->estado ?></td>
+                        <td>
+                          <?php if ($distrito->estado == "Activo") { ?>
+                            <span class="badge badge-success"><?= $distrito->estado ?></span>
+                          <?php } else { ?>
+                            <span class="badge badge-danger"><?= $distrito->estado ?></span>
+                          <?php } ?>
+                        </td>
 
                         <td>
                           <a href="#" data-toggle="modal" data-target="#editModal" data-id="<?= $distrito->idDistrito ?>"><i class="fas fa-edit"></i></a>

@@ -110,7 +110,14 @@ if ($response === false) {
                       <tr>
                         <td><?= $rol->idperfil ?></td>
                         <td><?= $rol->nombres ?></td>
-                        <td><?= $rol->estado ?></td>
+                        <td>
+                          <?php if ($rol->estado == "Activo") { ?>
+                            <span class="badge badge-success"><?= $rol->estado ?></span>
+                          <?php } else { ?>
+                            <span class="badge badge-danger"><?= $rol->estado ?></span>
+                          <?php } ?>
+
+                        </td>
 
                         <td>
                           <a href="#" data-toggle="modal" data-target="#editModal" data-id="<?= $rol->idperfil ?>"><i class="fas fa-edit"></i></a>

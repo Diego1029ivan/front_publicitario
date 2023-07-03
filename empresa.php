@@ -146,7 +146,13 @@ if ($response2 === false) {
                         <td><?= $empresa->telefono ?></td>
                         <td><?= $empresa->correo ?></td>
                         <td><?= $empresa->ruc ?></td>
-                        <td><?= $empresa->estado ?></td>
+                        <td>
+                          <?php if ($empresa->estado == "Activo") { ?>
+                            <span class="badge badge-success"><?= $empresa->estado ?></span>
+                          <?php } else { ?>
+                            <span class="badge badge-danger"><?= $empresa->estado ?></span>
+                          <?php } ?>
+                        </td>
 
                         <td>
                           <a href="#" data-toggle="modal" data-target="#editModal" data-id="<?= $empresa->idEmpresa ?>"><i class="fas fa-edit"></i></a>
