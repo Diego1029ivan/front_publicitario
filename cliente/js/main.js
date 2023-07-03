@@ -9,6 +9,7 @@
       
         // Limpiar el contenido actual del carrito
         cartItemsList.innerHTML = '';
+
         
         // Obtener la lista de productos del sessionStorage
         let productList = JSON.parse(sessionStorage.getItem('productList')) || [];
@@ -42,19 +43,22 @@
             </div>
             <div class="header-cart-item-txt p-t-8">
               <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">${product.name}</a>
+
               <span class="header-cart-item-info">
                 ${product.quantity} x $${product.price.toFixed(2)}
               </span>
             </div>
-            
+
           `;
       
           // Agregar el elemento <li> al carrito
           cartItemsList.appendChild(item);
         });
       });
+<<
       updateNotificationCount();
             updateTotalPrice();
+
     // Recorrer la lista de productos y agregar los elementos li al carrito
     productList.forEach(function(productName) {
         let cartItem = `

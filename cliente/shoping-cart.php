@@ -104,8 +104,10 @@
 								</span>
 							</div>
 						</div>
+
 <!-- adicionar la clase js-show-modal2 para el modal -->
 						<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pago-online">
+
 							Proceder al pago
 						</button>
 					</div>
@@ -527,7 +529,6 @@
 				cartItemsList.appendChild(item);
 				});
 				swal("Actualizando","el carrito fue actualizado!", "success");
-
 
     });
 
