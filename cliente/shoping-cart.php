@@ -172,13 +172,19 @@
 		let productList = JSON.parse(sessionStorage.getItem('productList')) || [];
 		let total = 0;
 		productList.forEach(product => {
+		let imagen=''
+		if(product.imagen== "img.png" || product.imagen == ""){
+			imagen = 'http://localhost:75/admin/uploads/img/img2.png';
+		}else{
+			imagen = 'http://localhost:75/admin/uploads/img/'+product.imagen;
+		}
 		let row = $(`<tr class="table_row" ></tr>`);
 		row.attr('data-product-id', product.id);
 		let imageCell = $('<td class="column-1"></td>');
 		// Crea y agrega el contenido para la celda de imagen aquí
 		// Por ejemplo:
 		let image = $(`<div class="how-itemcart1">
-						<img src="images/item-cart-05.jpg" alt="IMG">
+						<img src="${imagen}" alt="IMG">
 					</div>`);
 		// image.attr('src', product.image);
 		imageCell.append(image);

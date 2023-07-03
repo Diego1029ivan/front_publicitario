@@ -323,7 +323,13 @@ if ($response === false) {
 							<!-- Block2 -->
 							<div class="block2">
 								<div class="block2-pic hov-img0">
-									<img src="images/product-01.jpg" alt="IMG-PRODUCT">
+								<?php
+									if ($producto->productoImg == "img.png" || $producto->productoImg == "") { ?>
+										<img src="http://localhost:75/admin/uploads/img/img2.png" alt="imagen" width="100px">
+									<?php } else {  ?>
+										<img src="http://localhost:75/admin/uploads/img/<?= $producto->productoImg ?>" alt="imagen" width="100px">
+								<?php } ?>
+									
 
 									<a href="#"  data-id="<?= $producto->idProducto ?>" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1 prodSelect">
 										Vista rápida <?= $producto->idProducto ?>
@@ -396,37 +402,19 @@ if ($response === false) {
 								<div class="wrap-slick3-dots"></div>
 								<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 
-								<div class="slick3 gallery-lb">
-									<div class="item-slick3" data-thumb="images/product-detail-01.jpg">
+								
+									
 										<div class="wrap-pic-w pos-relative">
-											<img src="images/product-detail-01.jpg" alt="IMG-PRODUCT">
+											<img id="imagen-detalle2"  alt="IMG-PRODUCT">
 
 											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-01.jpg">
 												<i class="fa fa-expand"></i>
 											</a>
 										</div>
-									</div>
+									
 
-									<div class="item-slick3" data-thumb="images/product-detail-02.jpg">
-										<div class="wrap-pic-w pos-relative">
-											<img src="images/product-detail-02.jpg" alt="IMG-PRODUCT">
-
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-02.jpg">
-												<i class="fa fa-expand"></i>
-											</a>
-										</div>
-									</div>
-
-									<div class="item-slick3" data-thumb="images/product-detail-03.jpg">
-										<div class="wrap-pic-w pos-relative">
-											<img src="images/product-detail-03.jpg" alt="IMG-PRODUCT">
-
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-03.jpg">
-												<i class="fa fa-expand"></i>
-											</a>
-										</div>
-									</div>
-								</div>
+									
+								
 							</div>
 						</div>
 					</div>
@@ -441,12 +429,13 @@ if ($response === false) {
 								
 							</span>
 						<input type="number" hidden id="idProd">
+						<input type="text" hidden id="referencia">
 							<p class="stext-102 cl3 p-t-23">
 								Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.
 							</p>
 
 							<p class="stext-102 cl3 p-t-23" >
-								precio: S/ <strong id="precioProd">19</strong>
+								precio: S/ <strong id="precioProd"></strong>
 							</p>
 							
 							<!--  -->
@@ -602,6 +591,7 @@ if ($response === false) {
 	<script>
 		$('.prodSelect').click(function(event){
 			let prodId = $(this).data('id');
+			imagen=''
 			console.log(prodId)
 			let apiUrl = 'http://localhost:75/admin/producto/' + prodId;
 
@@ -617,6 +607,17 @@ if ($response === false) {
 				$('#detalleNombre').text(result.nombres);
 				$('#detalleFecha').text(result.fechaCaducidad);
 				$('#idProd').val(result.idProducto);
+				$('#precioProd').text(result.precioProducto);
+				$('#referencia').val(result.productoImg);
+				if(result.productoImg == "img.png" || result.productoImg == ""){
+					imagen = 'http://localhost:75/admin/uploads/img/img2.png';
+				}else{
+					imagen = 'http://localhost:75/admin/uploads/img/'+result.productoImg;
+				}
+				//console.log(imagen)
+				//$('#imagen-detalle').attr('data-tumb', 'http://localhost:75/admin/uploads/img/'+result.productoImg);
+				$('#imagen-detalle2').attr('src', imagen);
+				
 			})
 			.catch(error => console.log('error', error));
 		});
