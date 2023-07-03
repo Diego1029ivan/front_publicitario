@@ -108,7 +108,13 @@ if ($response === false) {
                       <tr>
                         <td><?= $departamento->idDepartamento ?></td>
                         <td><?= $departamento->nombre ?></td>
-                        <td><?= $departamento->estado ?></td>
+                        <td>
+                          <?php if ($departamento->estado == "Activo") { ?>
+                            <span class="badge badge-success"><?= $departamento->estado ?></span>
+                          <?php } else { ?>
+                            <span class="badge badge-danger"><?= $departamento->estado ?></span>
+                          <?php } ?>
+                        </td>
 
                         <td>
                           <a href="#" data-toggle="modal" data-target="#editModal" data-id="<?= $departamento->idDepartamento ?>"><i class="fas fa-edit"></i></a>

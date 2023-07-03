@@ -110,7 +110,13 @@ if ($response === false) {
                       <tr>
                         <td><?= $categoria->idCategoria ?></td>
                         <td><?= $categoria->nombres ?></td>
-                        <td><?= $categoria->estado ?></td>
+                        <td>
+                          <?php if ($categoria->estado == "Activo") { ?>
+                            <span class="badge badge-success"><?= $categoria->estado ?></span>
+                          <?php } else { ?>
+                            <span class="badge badge-danger"><?= $categoria->estado ?></span>
+                          <?php } ?>
+                        </td>
 
                         <td>
                           <a href="#" data-toggle="modal" data-target="#editModal" data-id="<?= $categoria->idCategoria ?>"><i class="fas fa-edit"></i></a>

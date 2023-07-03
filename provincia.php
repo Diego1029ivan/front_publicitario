@@ -134,7 +134,14 @@ if ($response2 === false) {
                         <td><?= $provincia->idProvincia ?></td>
                         <td><?= $provincia->nombre ?></td>
                         <td><?= $provincia->departamento->nombre ?></td>
-                        <td><?= $provincia->estado ?></td>
+                        <td>
+                          <?php if ($provincia->estado == "Activo") { ?>
+                            <span class="badge badge-success"><?= $provincia->estado ?></span>
+                          <?php } else { ?>
+                            <span class="badge badge-danger"><?= $provincia->estado ?></span>
+                          <?php } ?>
+
+                        </td>
 
                         <td>
                           <a href="#" data-toggle="modal" data-target="#editModal" data-id="<?= $provincia->idProvincia ?>"><i class="fas fa-edit"></i></a>

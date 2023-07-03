@@ -153,7 +153,12 @@ if ($response2 === false) {
                         <td><?= $usuario->direccion ?></td>
                         <td><?= $usuario->dni ?></td>
                         <td><?= $usuario->perfil->nombres ?></td>
-                        <td><?= $usuario->estado ?></td>
+                        <td><?php if ($usuario->estado == "Activo") { ?>
+                            <span class="badge badge-success"><?= $usuario->estado ?></span>
+                          <?php } else { ?>
+                            <span class="badge badge-danger"><?= $usuario->estado ?></span>
+                          <?php } ?>
+                        </td>
 
                         <td>
                           <a href="#" data-toggle="modal" data-target="#editModal" data-id="<?= $usuario->idUsuario ?>"><i class="fas fa-edit"></i></a>

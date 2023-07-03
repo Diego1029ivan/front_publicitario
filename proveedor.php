@@ -125,7 +125,14 @@ if ($response === false) {
                         <td><?= $proveedor->telefono ?></td>
                         <td><?= $proveedor->correo ?></td>
                         <td><?= $proveedor->nombre ?></td>
-                        <td><?= $proveedor->estado ?></td>
+                        <td>
+                          <?php if ($proveedor->estado == "Activo") { ?>
+                            <span class="badge badge-success"><?= $proveedor->estado ?></span>
+                          <?php } else { ?>
+                            <span class="badge badge-danger"><?= $proveedor->estado ?></span>
+                          <?php } ?>
+
+                        </td>
                         <td><?= $proveedor->ntarjeta ?></td>
                         <td><?= $proveedor->ruc ?></td>
 
