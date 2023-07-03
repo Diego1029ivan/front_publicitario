@@ -53,6 +53,8 @@
           cartItemsList.appendChild(item);
         });
       });
+      updateNotificationCount();
+            updateTotalPrice();
     // Recorrer la lista de productos y agregar los elementos li al carrito
     productList.forEach(function(productName) {
         let cartItem = `
@@ -351,6 +353,16 @@
         $('.js-modal1').removeClass('show-modal1');
     });
 
+    /*[ Show modal2 ]*/
+    $('.js-show-modal2').on('click',function(e){
+        e.preventDefault();
+        $('.js-modal2').addClass('show-modal2');
+    });
+
+    $('.js-hide-modal2').on('click',function(){
+        $('.js-modal2').removeClass('show-modal2');
+    });
+
 
     	/*---------------------------------------------*/
 
@@ -446,4 +458,8 @@
             $('.header-cart-total').text('Total: $' + totalPrice.toFixed(2));
 
           }
+
+          /*pago*/
+        
+
 })(jQuery);
