@@ -9,34 +9,56 @@
       
         // Limpiar el contenido actual del carrito
         cartItemsList.innerHTML = '';
-      
+
+        
         // Obtener la lista de productos del sessionStorage
         let productList = JSON.parse(sessionStorage.getItem('productList')) || [];
-      
+        
         // Recorrer la lista de productos y agregarlos al carrito
         productList.forEach(product => {
-          // Crear un nuevo elemento <li> para cada producto
-          let item = document.createElement('li');
-          item.classList.add('header-cart-item');
-      
-          // Crear y agregar el contenido del producto al <li> 
-          // Aquí puedes personalizar cómo se muestra cada producto en el carrito
+        let imagen=''
+        let idProd = product.id
+        // Crear un nuevo elemento <li> para cada producto
+        let item = document.createElement('li');
+        item.classList.add('header-cart-item');
+        item.classList.add('flex-w');
+        item.classList.add('flex-t');
+        item.classList.add('m-b-12');
+        item.setAttribute('data-product-id',idProd)
+        // data-product-id="${idProd}"
+        if(product.imagen == "img.png" || product.imagen == ""){
+        imagen = 'http://localhost:75/admin/uploads/img/img2.png';
+        }else{
+        imagen = 'http://localhost:75/admin/uploads/img/'+product.imagen;
+        }
+        // Crear y agregar el contenido del producto al <li> 
+        // Aquí puedes personalizar cómo se muestra cada producto en el carrito
           item.innerHTML = `
-            <div class="header-cart-item-img">
-              <img src="${product.image}" alt="Product Image">
+         
+            <div class="header-cart-item-img block3-pic hov-img0">
+              <img src="${imagen}" alt="Product Image">
+              <a href="#" class="block3-btn flex-c-m stext-103 cl2  bg0 bor2 hov-btn4 p-lr-15 trans-04 js-borrar-prod">
+                    x
+                  </a>
             </div>
-            <div class="header-cart-item-txt">
-              <a href="#" class="header-cart-item-name">${product.name}</a>
+            <div class="header-cart-item-txt p-t-8">
+              <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">${product.name}</a>
+
               <span class="header-cart-item-info">
                 ${product.quantity} x $${product.price.toFixed(2)}
               </span>
             </div>
+
           `;
       
           // Agregar el elemento <li> al carrito
           cartItemsList.appendChild(item);
         });
       });
+<<
+      updateNotificationCount();
+            updateTotalPrice();
+
     // Recorrer la lista de productos y agregar los elementos li al carrito
     productList.forEach(function(productName) {
         let cartItem = `
@@ -335,19 +357,34 @@
         $('.js-modal1').removeClass('show-modal1');
     });
 
+    /*[ Show modal2 ]*/
+    $('.js-show-modal2').on('click',function(e){
+        e.preventDefault();
+        $('.js-modal2').addClass('show-modal2');
+    });
+
+    $('.js-hide-modal2').on('click',function(){
+        $('.js-modal2').removeClass('show-modal2');
+    });
+
 
     	/*---------------------------------------------*/
 
 		$(document).on('click', '.js-addcart-detail', function() {
             let nameProduct = $('#detalleNombre').text();
             let idProd = $('#idProd').val();
-
+            let imagenUrl = $('#referencia').val();
             let cantProd = $('.num-product').val();
             let precioProduct = $('#precioProd').text();
             let productList = JSON.parse(sessionStorage.getItem('productList')) || [];
             // Verificar si el producto ya existe en la lista
             let isProductExists = productList.some(product => product.id === idProd);
-
+            let imagen=''
+            if(imagenUrl== "img.png" || imagenUrl == ""){
+                imagen = 'http://localhost:75/admin/uploads/img/img2.png';
+            }else{
+                imagen = 'http://localhost:75/admin/uploads/img/'+imagenUrl;
+            }
             if (isProductExists) {
                 swal(nameProduct, "ya está en el carrito!", "error");
                 return;
@@ -355,7 +392,7 @@
             let cartItem = `
               <li class="header-cart-item flex-w flex-t m-b-12" data-product-id="${idProd}">
                 <div class="header-cart-item-img block3-pic hov-img0">
-                  <img src="images/item-cart-01.jpg" alt="IMG">
+                  <img src="${imagen}" alt="IMG">
                   <a href="#" class="block3-btn flex-c-m stext-103 cl2  bg0 bor2 hov-btn4 p-lr-15 trans-04 js-borrar-prod">
                     x
                   </a>
@@ -375,7 +412,7 @@
           
             // Obtener la lista de productos actualizada
             //let productList = JSON.parse(sessionStorage.getItem('productList')) || [];
-            productList.push({ id: idProd, name: nameProduct,price: parseFloat(precioProduct), quantity: parseInt(cantProd) });
+            productList.push({ id: idProd, name: nameProduct,price: parseFloat(precioProduct), quantity: parseInt(cantProd),imagen: imagenUrl});
           
             // Guardar la lista de productos en el sessionStorage
             sessionStorage.setItem('productList', JSON.stringify(productList));
@@ -425,4 +462,8 @@
             $('.header-cart-total').text('Total: $' + totalPrice.toFixed(2));
 
           }
+
+          /*pago*/
+        
+
 })(jQuery);
