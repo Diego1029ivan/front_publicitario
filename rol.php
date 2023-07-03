@@ -2,7 +2,7 @@
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://pub.spring.informaticapp.com:9000/admin/perfil', // Agregué "http://" para especificar el protocolo
+  CURLOPT_URL => 'http://localhost:75/admin/perfil', // Agregué "http://" para especificar el protocolo
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -110,7 +110,14 @@ if ($response === false) {
                       <tr>
                         <td><?= $rol->idperfil ?></td>
                         <td><?= $rol->nombres ?></td>
-                        <td><?= $rol->estado ?></td>
+                        <td>
+                          <?php if ($rol->estado == "Activo") { ?>
+                            <span class="badge badge-success"><?= $rol->estado ?></span>
+                          <?php } else { ?>
+                            <span class="badge badge-danger"><?= $rol->estado ?></span>
+                          <?php } ?>
+
+                        </td>
 
                         <td>
                           <a href="#" data-toggle="modal" data-target="#editModal" data-id="<?= $rol->idperfil ?>"><i class="fas fa-edit"></i></a>
@@ -256,7 +263,7 @@ if ($response === false) {
         var rolId = button.data('id');
 
         // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
-        var apiUrl = 'http://pub.spring.informaticapp.com:9000/admin/perfil/' + rolId;
+        var apiUrl = 'http://localhost:75/admin/perfil/' + rolId;
 
         var requestOptions = {
           method: 'GET',
@@ -301,7 +308,7 @@ if ($response === false) {
             redirect: 'follow'
           };
 
-          fetch("http://pub.spring.informaticapp.com:9000/admin/perfil", requestOptions)
+          fetch("http://localhost:75/admin/perfil", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',
@@ -350,7 +357,7 @@ if ($response === false) {
             redirect: 'follow'
           };
 
-          fetch("http://pub.spring.informaticapp.com:9000/admin/perfil", requestOptions)
+          fetch("http://localhost:75/admin/perfil", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',
@@ -377,7 +384,7 @@ if ($response === false) {
       var rolId = $(this).data('id'); //reconocer el numero directo del id
 
       // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
-      var apiUrl = 'http://pub.spring.informaticapp.com:9000/admin/perfil/' + rolId;
+      var apiUrl = 'http://localhost:75/admin/perfil/' + rolId;
       //console.log(apiUrl,categoryId)
       Swal.fire({
         title: 'Estas seguro?',

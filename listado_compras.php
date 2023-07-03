@@ -4,7 +4,7 @@
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://pub.spring.informaticapp.com:9000/admin/compra', // Agregué "http://" para especificar el protocolo
+  CURLOPT_URL => 'http://localhost:75/admin/compra', // Agregué "http://" para especificar el protocolo
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -90,8 +90,8 @@ if ($response === false) {
                     <tr>
                       <th>ID</th>
                       <th>Descripción</th>
-                      <th>total</th>
-                      <th>fecha</th>
+                      <th>Total</th>
+                      <th>Fecha</th>
                       <th>Comprador</th>
                       <th>DNI</th>
                       <th>Estado</th>
@@ -103,8 +103,8 @@ if ($response === false) {
                     <tr>
                       <th>ID</th>
                       <th>Descripción</th>
-                      <th>total</th>
-                      <th>fecha</th>
+                      <th>Total</th>
+                      <th>Fecha</th>
                       <th>Comprador</th>
                       <th>DNI</th>
                       <th>Estado</th>
@@ -118,10 +118,21 @@ if ($response === false) {
                         <td><?= $compra->idCompra ?></td>
                         <td><?= $compra->descripcion ?></td>
                         <td><?= $compra->total ?></td>
-                        <td><?= $compra->fecha ?></td>
+                        <td><?php echo date("Y-m-d", strtotime($compra->fecha)) . "\n"; ?></td>
                         <td><?= $compra->usuario->nombre . " " . $compra->usuario->apellido ?></td>
                         <td><?= $compra->usuario->dni ?></td>
-                        <td><?= $compra->estado ?></td>
+                        <td>
+                          <?php if ($compra->estado == "Cancelado") { ?>
+                            <span class="badge badge-danger"><?= $compra->estado ?></span>
+                          <?php } else if (
+                            $compra->estado == "Pagado"
+                          ) { ?>
+                            <span class="badge badge-success"><?= $compra->estado ?></span>
+                          <?php } else if ($compra->estado == "Pendiente") { ?>
+                            <span class="badge badge-warning"><?= $compra->estado ?></span>
+                          <?php } ?>
+
+                        </td>
 
 
                         <td>
@@ -248,7 +259,7 @@ if ($response === false) {
         let comId = button.data('id');
 
         // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
-        let apiUrl = 'http://pub.spring.informaticapp.com:9000/admin/compra/' + comId;
+        let apiUrl = 'http://localhost:75/admin/compra/' + comId;
 
         let requestOptions = {
           method: 'GET',
@@ -315,7 +326,7 @@ if ($response === false) {
             redirect: 'follow'
           };
 
-          fetch("http://pub.spring.informaticapp.com:9000/admin/compra", requestOptions)
+          fetch("http://localhost:75/admin/compra", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',

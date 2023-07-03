@@ -2,7 +2,7 @@
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://pub.spring.informaticapp.com:9000/admin/departamento', // Agregué "http://" para especificar el protocolo
+  CURLOPT_URL => 'http://localhost:75/admin/departamento', // Agregué "http://" para especificar el protocolo
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -108,7 +108,13 @@ if ($response === false) {
                       <tr>
                         <td><?= $departamento->idDepartamento ?></td>
                         <td><?= $departamento->nombre ?></td>
-                        <td><?= $departamento->estado ?></td>
+                        <td>
+                          <?php if ($departamento->estado == "Activo") { ?>
+                            <span class="badge badge-success"><?= $departamento->estado ?></span>
+                          <?php } else { ?>
+                            <span class="badge badge-danger"><?= $departamento->estado ?></span>
+                          <?php } ?>
+                        </td>
 
                         <td>
                           <a href="#" data-toggle="modal" data-target="#editModal" data-id="<?= $departamento->idDepartamento ?>"><i class="fas fa-edit"></i></a>
@@ -254,7 +260,7 @@ if ($response === false) {
         var categoryId = button.data('id');
 
         // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
-        var apiUrl = 'http://pub.spring.informaticapp.com:9000/admin/departamento/' + categoryId;
+        var apiUrl = 'http://localhost:75/admin/departamento/' + categoryId;
 
         var requestOptions = {
           method: 'GET',
@@ -299,7 +305,7 @@ if ($response === false) {
             redirect: 'follow'
           };
 
-          fetch("http://pub.spring.informaticapp.com:9000/admin/departamento", requestOptions)
+          fetch("http://localhost:75/admin/departamento", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',
@@ -348,7 +354,7 @@ if ($response === false) {
             redirect: 'follow'
           };
 
-          fetch("http://pub.spring.informaticapp.com:9000/admin/departamento", requestOptions)
+          fetch("http://localhost:75/admin/departamento", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',
@@ -375,7 +381,7 @@ if ($response === false) {
       var departamentoId = $(this).data('id'); //reconocer el numero directo del id
 
       // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
-      var apiUrl = 'http://pub.spring.informaticapp.com:9000/admin/departamento/' + departamentoId;
+      var apiUrl = 'http://localhost:75/admin/departamento/' + departamentoId;
       //console.log(apiUrl,categoryId)
       Swal.fire({
         title: 'Estas seguro?',

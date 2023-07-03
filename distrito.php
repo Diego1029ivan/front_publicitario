@@ -2,7 +2,7 @@
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://pub.spring.informaticapp.com:9000/admin/distrito', // Agregué "http://" para especificar el protocolo
+  CURLOPT_URL => 'http://localhost:75/admin/distrito', // Agregué "http://" para especificar el protocolo
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -14,7 +14,7 @@ curl_setopt_array($curl, array(
 $curl2 = curl_init();
 
 curl_setopt_array($curl2, array(
-  CURLOPT_URL => 'http://pub.spring.informaticapp.com:9000/admin/provincia', // Agregué "http://" para especificar el protocolo
+  CURLOPT_URL => 'http://localhost:75/admin/provincia', // Agregué "http://" para especificar el protocolo
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -137,7 +137,13 @@ if ($response2 === false) {
                         <td><?= $distrito->nombre ?></td>
                         <td><?= $distrito->provincia->nombre ?></td>
                         <td><?= $distrito->provincia->departamento->nombre ?></td>
-                        <td><?= $distrito->estado ?></td>
+                        <td>
+                          <?php if ($distrito->estado == "Activo") { ?>
+                            <span class="badge badge-success"><?= $distrito->estado ?></span>
+                          <?php } else { ?>
+                            <span class="badge badge-danger"><?= $distrito->estado ?></span>
+                          <?php } ?>
+                        </td>
 
                         <td>
                           <a href="#" data-toggle="modal" data-target="#editModal" data-id="<?= $distrito->idDistrito ?>"><i class="fas fa-edit"></i></a>
@@ -302,7 +308,7 @@ if ($response2 === false) {
         var provinciaId = button.data('id');
 
         // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
-        var apiUrl = 'http://pub.spring.informaticapp.com:9000/admin/distrito/' + provinciaId;
+        var apiUrl = 'http://localhost:75/admin/distrito/' + provinciaId;
 
         var requestOptions = {
           method: 'GET',
@@ -351,7 +357,7 @@ if ($response2 === false) {
             redirect: 'follow'
           };
 
-          fetch("http://pub.spring.informaticapp.com:9000/admin/distrito", requestOptions)
+          fetch("http://localhost:75/admin/distrito", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',
@@ -403,7 +409,7 @@ if ($response2 === false) {
             redirect: 'follow'
           };
 
-          fetch("http://pub.spring.informaticapp.com:9000/admin/distrito", requestOptions)
+          fetch("http://localhost:75/admin/distrito", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',
@@ -430,7 +436,7 @@ if ($response2 === false) {
       var departamentoId = $(this).data('id'); //reconocer el numero directo del id
 
       // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
-      var apiUrl = 'http://pub.spring.informaticapp.com:9000/admin/distrito/' + departamentoId;
+      var apiUrl = 'http://localhost:75/admin/distrito/' + departamentoId;
       //console.log(apiUrl,categoryId)
       Swal.fire({
         title: 'Estas seguro?',

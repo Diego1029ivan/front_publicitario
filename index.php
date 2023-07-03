@@ -38,7 +38,7 @@
         <?php include('componentes/topbar.php'); ?>
 
         <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div class="container-fluid" id="ocultarAdmin">
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -327,6 +327,9 @@
           </div>
 
         </div>
+        <div id="mostrarAdmin" style="text-align: center;">
+          <img src="./img/publicidadEmpresa.svg">
+        </div>
         <!-- /.container-fluid -->
 
       </div>
@@ -349,6 +352,19 @@
 
   <!-- Logout Modal-->
   <?php include('componentes/modalSession.php'); ?>
+  <script>
+    let ocultarAdmin = document.getElementById("ocultarAdmin");
+    let mostrarAdmin = document.getElementById("mostrarAdmin");
+    let useV = JSON.parse(localStorage.getItem("usuario"));
+    mostrarAdmin.style.display = "none";
+    if (useV.perfil.nombres == "ROLE_ADMIN") {
+      ocultarAdmin.style.display = "none";
+      mostrarAdmin.style.display = "block";
+    } else if (useV.perfil.nombres == "ROLE_SUPADMIN") {
+      ocultarAdmin.style.display = "block";
+      mostrarAdmin.style.display = "none";
+    }
+  </script>
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

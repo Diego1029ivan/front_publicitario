@@ -4,7 +4,7 @@
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://pub.spring.informaticapp.com:9000/admin/producto', // Agregué "http://" para especificar el protocolo
+  CURLOPT_URL => 'http://localhost:75/admin/producto', // Agregué "http://" para especificar el protocolo
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -32,7 +32,7 @@ if ($response === false) {
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://pub.spring.informaticapp.com:9000/admin/categoria', // Agregué "http://" para especificar el protocolo
+  CURLOPT_URL => 'http://localhost:75/admin/categoria', // Agregué "http://" para especificar el protocolo
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -60,7 +60,7 @@ if ($response === false) {
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://pub.spring.informaticapp.com:9000/admin/marca', // Agregué "http://" para especificar el protocolo
+  CURLOPT_URL => 'http://localhost:75/admin/marca', // Agregué "http://" para especificar el protocolo
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -148,6 +148,8 @@ if ($response === false) {
                     <tr>
                       <th>ID</th>
                       <th>Nombre</th>
+                      <th>Imagen</th>
+                      <th>Precio</th>
                       <th>Marca</th>
                       <th>Categoría</th>
                       <th>Cantidad</th>
@@ -161,6 +163,8 @@ if ($response === false) {
                     <tr>
                       <th>ID</th>
                       <th>Nombre</th>
+                      <th>Imagen</th>
+                      <th>Precio</th>
                       <th>Marca</th>
                       <th>Categoría</th>
                       <th>Cantidad</th>
@@ -176,11 +180,28 @@ if ($response === false) {
                       <tr>
                         <td><?= $producto->idProducto ?></td>
                         <td><?= $producto->nombres ?></td>
+
+                        <td>
+                          <?php
+                          if ($producto->productoImg == "img.png" || $producto->productoImg == "") { ?>
+                            <img src="http://localhost:75/admin/uploads/img/img2.png" alt="imagen" width="100px">
+                          <?php } else {  ?>
+                            <img src="http://localhost:75/admin/uploads/img/<?= $producto->productoImg ?>" alt="imagen" width="100px">
+                          <?php } ?>
+                        </td>
+                        <td><?= $producto->precioProducto ?></td>
                         <td><?= $producto->marca->nombres ?></td>
                         <td><?= $producto->categoria->nombres ?></td>
                         <td><?= $producto->cantidad ?></td>
                         <td><?= $producto->fechaCaducidad ?></td>
-                        <td><?= $producto->estado ?></td>
+                        <td><?php if ($producto->estado == "Activo") { ?>
+                            <span class="badge badge-success"><?= $producto->estado ?></span>
+                          <?php } else { ?>
+                            <span class="badge badge-danger"><?= $producto->estado ?></span>
+                          <?php } ?>
+
+
+                        </td>
 
 
                         <td>
@@ -285,6 +306,12 @@ if ($response === false) {
                 <input type="date" class="form-control form-control-user" id="editProdFecha">
               </div>
             </div>
+            <div class="form-group row">
+              <div class="col-sm-6">
+                <label for="editProdprecio">Precio</label>
+                <input type="number" class="form-control form-control-user" id="editProdprecio" min="1">
+              </div>
+            </div>
 
 
 
@@ -304,7 +331,7 @@ if ($response === false) {
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Editar Producto</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Crear Producto</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -319,7 +346,7 @@ if ($response === false) {
               </div>
               <div class="col-sm-6">
                 <label for="">Cantidad</label>
-                <input type="number" class="form-control form-control-user" id="crearProdCant">
+                <input type="number" class="form-control form-control-user" id="crearProdCant" min="1">
               </div>
             </div>
 
@@ -357,7 +384,17 @@ if ($response === false) {
                 <input type="date" class="form-control form-control-user" id="crearProdFecha">
               </div>
             </div>
+            <div class="form-group row">
+              <div class="col-sm-6">
+                <label for="crearProdprecio">Precio</label>
+                <input type="number" class="form-control form-control-user" id="crearProdprecio" min="1">
+              </div>
+              <div class="col-sm-6">
+                <label for="crearImagen">Imagen Producto</label>
+                <input type="file" class="form-control form-control-user" id="crearImagen">
+              </div>
 
+            </div>
 
 
 
@@ -392,13 +429,14 @@ if ($response === false) {
   <script src="js/demo/datatables-demo.js"></script>
   <script src="js/exit.js"></script>
   <script>
+    let productoImg = "";
     $(document).ready(function() {
       $('#editModal').on('show.bs.modal', function(event) {
         let button = $(event.relatedTarget);
         let prodId = button.data('id');
 
         // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
-        let apiUrl = 'http://pub.spring.informaticapp.com:9000/admin/producto/' + prodId;
+        let apiUrl = 'http://localhost:75/admin/producto/' + prodId;
 
         let requestOptions = {
           method: 'GET',
@@ -408,14 +446,14 @@ if ($response === false) {
         fetch(apiUrl, requestOptions)
           .then(response => response.json())
           .then(result => {
-
+            productoImg = result.productoImg;
             $('#editProdId').val(result.idProducto);
             $('#editProdName').val(result.nombres);
             $('#editProdCant').val(result.cantidad);
             $('#selecteditMarca').val(result.marca.idMarca);
             $('#selecteditCat').val(result.categoria.idCategoria);
             $('#editProdFecha').val(result.fechaCaducidad);
-
+            $('#editProdprecio').val(result.precioProducto);
             $('#editselect').val(result.estado);
           })
           .catch(error => console.log('error', error));
@@ -447,6 +485,8 @@ if ($response === false) {
               "idCategoria": $('#selecteditCat').val()
             },
             "cantidad": $('#editProdCant').val(),
+            "precioProducto": $('#editProdprecio').val(),
+            "productoImg": productoImg,
             "fechaCaducidad": $('#editProdFecha').val(),
             "estado": $('#editselect').val()
 
@@ -461,7 +501,7 @@ if ($response === false) {
             redirect: 'follow'
           };
 
-          fetch("http://pub.spring.informaticapp.com:9000/admin/producto", requestOptions)
+          fetch("http://localhost:75/admin/producto", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',
@@ -509,9 +549,11 @@ if ($response === false) {
             },
             "cantidad": $('#crearProdCant').val(),
             "fechaCaducidad": $('#crearProdFecha').val(),
+            "precioProducto": $('#crearProdprecio').val(),
+            "productoImg": "",
             "estado": $('#crearselect').val()
           });
-          //console.log(raw)
+          // console.log(raw)
           var requestOptions = {
             method: 'POST',
             headers: myHeaders,
@@ -519,20 +561,41 @@ if ($response === false) {
             redirect: 'follow'
           };
 
-          fetch("http://pub.spring.informaticapp.com:9000/admin/producto", requestOptions)
-            .catch(error => console.log('error', error));
-          Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Producto creado',
-            showConfirmButton: false,
-            timer: 1400
-          })
+          fetch("http://localhost:75/admin/producto", requestOptions)
+            .catch(error => console.log('error', error))
+            .then(response => response.json())
+            .then((data) => {
+              console.log(data)
+              const archivo = document.getElementById("crearImagen").files[0];
+              let formData = new FormData();
+              formData.append("archivo", archivo);
+              formData.append("id", data.idProducto);
+              fetch("http://localhost:75/admin/producto/upload", {
+                  method: "POST",
+                  body: formData,
+                })
+                .then(response => response.json())
+                .then((data) => {
+                  console.log(data)
+                  Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Producto creado',
+                    showConfirmButton: false,
+                    timer: 1400
+                  })
 
-          $('#crearModal').modal('hide');
-          setTimeout(function() {
-            location.reload(); // Recargar la página después de un tiempo de espera
-          }, 1500);
+                  $('#crearModal').modal('hide');
+                  setTimeout(function() {
+                    location.reload(); // Recargar la página después de un tiempo de espera
+                  }, 1500);
+
+                })
+                .catch(error => console.log(error));
+
+
+            })
+
 
         }
 
@@ -546,7 +609,7 @@ if ($response === false) {
       var prodId = $(this).data('id'); //reconocer el numero directo del id
 
       // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
-      var apiUrl = 'http://pub.spring.informaticapp.com:9000/admin/producto/' + prodId;
+      var apiUrl = 'http://localhost:75/admin/producto/' + prodId;
       //console.log(apiUrl,categoryId)
       Swal.fire({
         title: 'Estas seguro?',

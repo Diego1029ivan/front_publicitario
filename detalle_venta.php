@@ -2,7 +2,7 @@
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://pub.spring.informaticapp.com:9000/admin/venta', // Agregué "http://" para especificar el protocolo
+  CURLOPT_URL => 'http://localhost:75/admin/venta', // Agregué "http://" para especificar el protocolo
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -17,7 +17,7 @@ $response = curl_exec($curl);
 $curl2 = curl_init();
 
 curl_setopt_array($curl2, array(
-  CURLOPT_URL => 'http://pub.spring.informaticapp.com:9000/admin/distrito', // Agregué "http://" para especificar el protocolo
+  CURLOPT_URL => 'http://localhost:75/admin/distrito', // Agregué "http://" para especificar el protocolo
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -124,7 +124,7 @@ if ($response2 === false) {
                       <th>Departamento</th>
                       <th>Venta</th>
                       <th>Comprovante</th>
-                      <th>fechaHora</th>
+                      <th>FechaHora</th>
                       <th>Total</th>
                       <th>Estado</th>
                       <th>Acciones</th>
@@ -143,7 +143,7 @@ if ($response2 === false) {
                       <th>Departamento</th>
                       <th>Venta</th>
                       <th>Comprovante</th>
-                      <th>fechaHora</th>
+                      <th>FechaHora</th>
                       <th>Total</th>
                       <th>Estado</th>
                       <th>Acciones</th>
@@ -162,9 +162,18 @@ if ($response2 === false) {
                         <td><?= $venta->distrito->provincia->departamento->nombre ?></td>
                         <td><?= $venta->tipoVenta ?></td>
                         <td><?= $venta->tipoComprobante ?></td>
-                        <td><?= $venta->fechaHora ?></td>
+                        <td> <?php echo date("Y-m-d", strtotime($venta->fechaHora)) . "\n"; ?></td>
                         <td><?= $venta->total ?></td>
-                        <td><?= $venta->estado ?></td>
+                        <td>
+                          <?php if ($venta->estado == "Cancelado") { ?>
+                            <span class="badge badge-danger"><?= $venta->estado ?></span>
+                          <?php } else if ($venta->estado == "Pagado") { ?>
+                            <span class="badge badge-success"><?= $venta->estado ?></span>
+                          <?php } else if ($venta->estado == "Pendiente") { ?>
+                            <span class="badge badge-warning"><?= $venta->estado ?></span>
+                          <?php } ?>
+
+                        </td>
                         <td>
                           <a href="#" data-toggle="modal" data-target="#editModal" data-id="<?= $venta->idVenta ?>"><i class="fas fa-edit"></i></a>
                           <!-- <a href="#" class="borrarUsuario" data-id="<?= $venta->idVenta ?>"><i class="fas fa-trash-alt"></i></a> -->
@@ -274,7 +283,7 @@ if ($response2 === false) {
         var usuarioId = button.data('id');
 
         // Aquí realizas la solicitud para obtener los datos de la categoría con el ID correspondiente
-        var apiUrl = 'http://pub.spring.informaticapp.com:9000/admin/venta/' + usuarioId;
+        var apiUrl = 'http://localhost:75/admin/venta/' + usuarioId;
 
         var requestOptions = {
           method: 'GET',
@@ -333,7 +342,7 @@ if ($response2 === false) {
             redirect: 'follow'
           };
           console.log(raw);
-          fetch("http://pub.spring.informaticapp.com:9000/admin/venta", requestOptions)
+          fetch("http://localhost:75/admin/venta", requestOptions)
             .catch(error => console.log('error', error));
           Swal.fire({
             position: 'top-end',
