@@ -3,7 +3,40 @@
     "use strict";
     // Obtener la lista de productos del sessionStorage
     let productList = JSON.parse(sessionStorage.getItem('productList')) || [];
-
+    document.addEventListener('DOMContentLoaded', function() {
+        // Obtener el elemento <ul> del carrito
+        let cartItemsList = document.querySelector('.header-cart-wrapitem');
+      
+        // Limpiar el contenido actual del carrito
+        cartItemsList.innerHTML = '';
+      
+        // Obtener la lista de productos del sessionStorage
+        let productList = JSON.parse(sessionStorage.getItem('productList')) || [];
+      
+        // Recorrer la lista de productos y agregarlos al carrito
+        productList.forEach(product => {
+          // Crear un nuevo elemento <li> para cada producto
+          let item = document.createElement('li');
+          item.classList.add('header-cart-item');
+      
+          // Crear y agregar el contenido del producto al <li> 
+          // Aquí puedes personalizar cómo se muestra cada producto en el carrito
+          item.innerHTML = `
+            <div class="header-cart-item-img">
+              <img src="${product.image}" alt="Product Image">
+            </div>
+            <div class="header-cart-item-txt">
+              <a href="#" class="header-cart-item-name">${product.name}</a>
+              <span class="header-cart-item-info">
+                ${product.quantity} x $${product.price.toFixed(2)}
+              </span>
+            </div>
+          `;
+      
+          // Agregar el elemento <li> al carrito
+          cartItemsList.appendChild(item);
+        });
+      });
     // Recorrer la lista de productos y agregar los elementos li al carrito
     productList.forEach(function(productName) {
         let cartItem = `

@@ -1,14 +1,4 @@
-<?php
-// Obtener los datos enviados por JavaScript
-$productList = json_decode(file_get_contents('php://input'), true);
 
-// Verificar si se recibieron los datos correctamente
-if ($productList !== null) {
-    // Puedes realizar operaciones con los datos aquí
-    // Por ejemplo, imprimir el contenido del Session Storage
-    print_r($productList);
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -88,7 +78,7 @@ if ($productList !== null) {
 
 							<div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10"
 							id="actualizar-precio">
-								Update Cart
+								Actualizar carrito
 							</div>
 						</div>
 					</div>
@@ -97,7 +87,7 @@ if ($productList !== null) {
 				<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
 					<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
 						<h4 class="mtext-109 cl2 p-b-30">
-							Cart Totals
+							Valor Total
 						</h4>
 
 						
@@ -110,13 +100,13 @@ if ($productList !== null) {
 
 							<div class="size-209 p-t-1">
 								<span class="mtext-110 cl2" id="total">
-									$79.65
+									$0
 								</span>
 							</div>
 						</div>
 
 						<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-							Proceed to Checkout
+							Proceder al pago
 						</button>
 					</div>
 				</div>
@@ -155,6 +145,7 @@ if ($productList !== null) {
 	</script>
 <!--===============================================================================================-->
 	<script src="vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+	<script src="vendor/sweetalert/sweetalert.min.js"></script>
 <!--===============================================================================================-->
 	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script>
@@ -175,6 +166,7 @@ if ($productList !== null) {
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
 	<script>
+		
 		let cartTable = $('#cartTable');
 		let cartBody = $('#cartBody');
 		let productList = JSON.parse(sessionStorage.getItem('productList')) || [];
@@ -301,7 +293,7 @@ if ($productList !== null) {
 				// Agregar el elemento <li> al carrito
 				cartItemsList.appendChild(item);
 				});
-		
+				swal("Actualizando","el carrito fue actualizado!", "success");
     });
 	
 	
