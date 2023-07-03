@@ -90,8 +90,8 @@ if ($response === false) {
                     <tr>
                       <th>ID</th>
                       <th>Descripción</th>
-                      <th>total</th>
-                      <th>fecha</th>
+                      <th>Total</th>
+                      <th>Fecha</th>
                       <th>Comprador</th>
                       <th>DNI</th>
                       <th>Estado</th>
@@ -103,8 +103,8 @@ if ($response === false) {
                     <tr>
                       <th>ID</th>
                       <th>Descripción</th>
-                      <th>total</th>
-                      <th>fecha</th>
+                      <th>Total</th>
+                      <th>Fecha</th>
                       <th>Comprador</th>
                       <th>DNI</th>
                       <th>Estado</th>
@@ -118,10 +118,21 @@ if ($response === false) {
                         <td><?= $compra->idCompra ?></td>
                         <td><?= $compra->descripcion ?></td>
                         <td><?= $compra->total ?></td>
-                        <td><?= $compra->fecha ?></td>
+                        <td><?php echo date("Y-m-d", strtotime($compra->fecha)) . "\n"; ?></td>
                         <td><?= $compra->usuario->nombre . " " . $compra->usuario->apellido ?></td>
                         <td><?= $compra->usuario->dni ?></td>
-                        <td><?= $compra->estado ?></td>
+                        <td>
+                          <?php if ($compra->estado == "Cancelado") { ?>
+                            <span class="badge badge-danger"><?= $compra->estado ?></span>
+                          <?php } else if (
+                            $compra->estado == "Pagado"
+                          ) { ?>
+                            <span class="badge badge-success"><?= $compra->estado ?></span>
+                          <?php } else if ($compra->estado == "Pendiente") { ?>
+                            <span class="badge badge-warning"><?= $compra->estado ?></span>
+                          <?php } ?>
+
+                        </td>
 
 
                         <td>

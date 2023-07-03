@@ -124,7 +124,7 @@ if ($response2 === false) {
                       <th>Departamento</th>
                       <th>Venta</th>
                       <th>Comprovante</th>
-                      <th>fechaHora</th>
+                      <th>FechaHora</th>
                       <th>Total</th>
                       <th>Estado</th>
                       <th>Acciones</th>
@@ -143,7 +143,7 @@ if ($response2 === false) {
                       <th>Departamento</th>
                       <th>Venta</th>
                       <th>Comprovante</th>
-                      <th>fechaHora</th>
+                      <th>FechaHora</th>
                       <th>Total</th>
                       <th>Estado</th>
                       <th>Acciones</th>
@@ -162,9 +162,18 @@ if ($response2 === false) {
                         <td><?= $venta->distrito->provincia->departamento->nombre ?></td>
                         <td><?= $venta->tipoVenta ?></td>
                         <td><?= $venta->tipoComprobante ?></td>
-                        <td><?= $venta->fechaHora ?></td>
+                        <td> <?php echo date("Y-m-d", strtotime($venta->fechaHora)) . "\n"; ?></td>
                         <td><?= $venta->total ?></td>
-                        <td><?= $venta->estado ?></td>
+                        <td>
+                          <?php if ($venta->estado == "Cancelado") { ?>
+                            <span class="badge badge-danger"><?= $venta->estado ?></span>
+                          <?php } else if ($venta->estado == "Pagado") { ?>
+                            <span class="badge badge-success"><?= $venta->estado ?></span>
+                          <?php } else if ($venta->estado == "Pendiente") { ?>
+                            <span class="badge badge-warning"><?= $venta->estado ?></span>
+                          <?php } ?>
+
+                        </td>
                         <td>
                           <a href="#" data-toggle="modal" data-target="#editModal" data-id="<?= $venta->idVenta ?>"><i class="fas fa-edit"></i></a>
                           <!-- <a href="#" class="borrarUsuario" data-id="<?= $venta->idVenta ?>"><i class="fas fa-trash-alt"></i></a> -->
